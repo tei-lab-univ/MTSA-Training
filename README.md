@@ -32,7 +32,7 @@ $ git push -u origin <ブランチ名(リモート)>
 ```
 
 3. mtsa.jarをダウンロードして「MTSA-Training」に配置する  
-以下のURLからmtsa.jarをダウンロードして，「MTSA-Training」ディレクトリ内に配置する．
+以下のURLからmtsa.jarをダウンロードして，「MTSA-Training」ディレクトリ内に配置する．  
 mtsa.jar：https://waseda.box.com/s/asm6gj8b6h0sp6xrx1mop5gvwhhcwjj1
 ```
 MTSA-Training
@@ -53,4 +53,8 @@ $ java -jar -Xmx8G mtsa.jar
 ```
 
 ## 参考 ##
-MTSAの使い方や、コードへの貢献方法について知りたい場合は、Wikiページをご覧ください。(https://bitbucket.org/lnahabedian/mtsa/wiki/)
+MTSAコードの記述方法（FSP）やLTSについて詳細を知りたい場合は以下ページを参照してください．  
+  
+FSP Reference：https://www.doc.ic.ac.uk/~jnm/LTSdocumention/FSP-notation.html  
+FSP Quick Reference：https://www.doc.ic.ac.uk/~jnm/book/firstbook/ltsa/Appendix-A.html  
+LTSA：https://www.doc.ic.ac.uk/ltsa/  
