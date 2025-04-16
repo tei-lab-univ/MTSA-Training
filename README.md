@@ -31,7 +31,21 @@ $ git checkout -b <ブランチ名(ローカル)>
 $ git push -u origin <ブランチ名(リモート)>
 ```
 
-3. mtsaを起動して，制御器合成を行う  
+3. mtsa.jarをダウンロードして「MTSA-Training」に配置する  
+以下のURLからmtsa.jarをダウンロードして，「MTSA-Training」ディレクトリ内に配置する．
+mtsa.jar：https://waseda.box.com/s/asm6gj8b6h0sp6xrx1mop5gvwhhcwjj1
+```
+MTSA-Training
+├── mtsa.jar /*ここに配置する*/
+├── README.md
+├── log.out
+└── workspace
+    ├── xxxx.lts
+    ├── xxxx.lts
+    :
+```
+
+4. mtsaを起動して，制御器合成を行う  
 mtsaを起動して演習を実施する．「-Xmx」以降には使用したいメモリを指定すると良い．
 jarファイルをダブルクリックして起動することも可能だが，使用メモリをOSが勝手に制限するため，評価実験の際には必ず以下コマンドで起動すること！
 ```
