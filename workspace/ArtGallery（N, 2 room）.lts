@@ -10,7 +10,7 @@
 // Environment
 //*****************************************************************************
 
-const N = 3
+const N = 2
 //const HALL_N  = 3
 //const RoomA_N = 3
 //const RoomB_N = 3
