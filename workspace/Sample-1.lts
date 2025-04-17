@@ -50,12 +50,12 @@ COURCE[a:ID] = (when(a < 6) south    -> arrive[a+3] -> COURCE[a+3]
 //*****************************************************************************
 fluent GOAL = <arrive[24],RobotActions>
 
-controllerSpec PartSpec1 =
+controllerSpec X =
 {
 	liveness     = {GOAL}
 	controllable = {RobotActions}
 }
-controller ||C = (CourceEnvironment)~{PartSpec1}
+controller ||C = (CourceEnvironment)~{X}.
 
 //*****************************************************************************
 // Image
