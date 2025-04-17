@@ -53,8 +53,9 @@ fluent GOAL = <arrive[24],RobotActions>
 controllerSpec PartSpec1 =
 {
 	liveness     = {GOAL}
-	controllable = {ControllableActions}
+	controllable = {ControllableActions},
 }
+controller ||C = CourceEnvironment~{PartSpec1}
 
 //*****************************************************************************
 // Image
