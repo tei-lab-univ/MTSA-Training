@@ -11,7 +11,7 @@
 //*****************************************************************************
 
 /* set variable (有限長) */
-range ID = 0..8
+range ID = 0..24
 range T_f = 0..1
 
 
@@ -32,10 +32,10 @@ ROBOT = (north -> ROBOT | south -> ROBOT | east -> ROBOT | west -> ROBOT).
 
 // Cource Model
 COURCE_S = COURCE[0],//Robotで変更
-COURCE[a:ID] = (when(a < 6) south    -> arrive[a+3] -> COURCE[a+3]
-               |when(a > 2) north    -> arrive[a-3] -> COURCE[a-3]
-               |when(a % 3 < 2) east -> arrive[a+1] -> COURCE[a+1]
-               |when(a % 3 > 0) west -> arrive[a-1] -> COURCE[a-1]).
+COURCE[a:ID] = (when(a < 20) south    -> arrive[a+5] -> COURCE[a+5]
+               |when(a > 4) north    -> arrive[a-5] -> COURCE[a-5]
+               |when(a % 5 < 4) east -> arrive[a+1] -> COURCE[a+1]
+               |when(a % 5 > 0) west -> arrive[a-1] -> COURCE[a-1]).
 
 
 || RobotEnvironment = (ROBOT_S).
