@@ -55,7 +55,7 @@ ltl_property NOT_RETURN_2 = [](arrive[0] -> X(!(north || west) W arrive[24]))
 //*****************************************************************************
 
 controllerSpec Requirement = {
-	safety = {NOT_RETURN_1, NOT_RETURN_2},
+	safety = {NOT_RETURN_1, NOT_RETURN_2}
 	controllable = {RobotActions}
 }
 
