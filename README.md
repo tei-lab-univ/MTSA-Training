@@ -28,6 +28,8 @@ $ git clone https://github.com/tei-lab-univ/MTSA-Training.git
 ```
 $ cd MTSA-Training
 $ git checkout -b <ブランチ名(ローカル)>
+$ git add .
+$ git commit -m "initialize"
 $ git push -u origin <ブランチ名(リモート)>
 ```
 
