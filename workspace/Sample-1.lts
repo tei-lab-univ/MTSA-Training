@@ -35,7 +35,6 @@ COURCE[a:ID] = (when(a < 6) south    -> arrive[a+3] -> COURCE[a+3]
                |when(a % 3 < 2) east -> arrive[a+1] -> COURCE[a+1]
                |when(a % 3 > 0) west -> arrive[a-1] -> COURCE[a-1]).
 
-
 || RobotEnvironment = (ROBOT_S).
 || CourceEnvironment = (COURCE_S).
 
@@ -49,9 +48,13 @@ COURCE[a:ID] = (when(a < 6) south    -> arrive[a+3] -> COURCE[a+3]
 //*****************************************************************************
 // Controller
 //*****************************************************************************
+fluent GOAL = <arrive[24],RobotActions>
 
-
-
+controllerSpec PartSpec1 =
+{
+	liveness     = {GOAL}
+	controllable = {ControllableActions}
+}
 
 //*****************************************************************************
 // Image
