@@ -46,12 +46,20 @@ COURCE[a:ID] = (when(a < 20) south    -> arrive[a+5] -> COURCE[a+5]
 // Requirement
 //*****************************************************************************
  
-
+ltl_property NOT_RETURN_1 = [](arrive[24] -> X(!(south || east) W arrive[0]))
+ltl_property NOT_RETURN_2 = [](arrive[0] -> X(!(north || west) W arrive[24]))
 
 
 //*****************************************************************************
 // Controller
 //*****************************************************************************
+
+controllerSpec Requirement = {
+	safety = {NOT_RETURN_1, NOT_RETURN_2}
+	controllable = {RobotActions}
+}
+
+controller ||Controller = (CourceEnvironment||RobotEnvironment)~(Requirement).
 
 
 
