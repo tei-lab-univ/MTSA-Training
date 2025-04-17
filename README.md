@@ -4,7 +4,7 @@
 [MTSA webpage](http://mtsa.dc.uba.ar/)
 
 ## 注意 ##
-このリポジトリに含まれるmtsa.jarは，FSPをコンパイルするごとに「mtsa.jar」が置かれているディレクトリのファイルすべてがgit上にアップロードされます．
+このリポジトリに含まれるmtsa.jarは，FSPでltsファイルを保存するごとに「mtsa.jar」が置かれているディレクトリのファイルすべてがgit上にアップロードされます．
 必ず，ネットワークのつながる環境で作業を行ってください．
 ※通常盤はこちらからダウンロードしてください(https://github.com/iTaku3/mtsa_waseda.git)
 
