@@ -11,9 +11,7 @@
 //*****************************************************************************
 
 /* set variable (有限長) */
-range ID = 0..8
-range T_f = 0..1
-
+range ID = 0..24
 
 /* set Actions (事象の集合) */
 set RobotActions = {north, south, east, west}
