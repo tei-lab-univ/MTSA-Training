@@ -59,7 +59,7 @@ controllerSpec Requirement = {
 	controllable = {RobotActions}
 }
 
-controller ||Controller = (CourceEnvironment||RobotEnvironment)~{Requirement}.
+controller ||Controller = (CourceEnvironment||RobotEnvironment)~{Requirement}
 
 
 
