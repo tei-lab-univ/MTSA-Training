@@ -14,7 +14,7 @@ STATE7 = (deny -> STATE6).
 
 //別解
 //arrive.1からarrive.5まで
-range N = 0..5
+range N = 0..5　//変数の範囲..状態数を有限にするため
 
 ROOM_S = STATE0[0],
 STATE0[n:N] = (reqEnter->STATE1[n]
@@ -24,3 +24,6 @@ STATE1[n:N] = (when(n < 5) allow -> arrive[n+1] -> STATE0[n+1]
 
 ||ALERT_MODEL = (ALERT).
 ||ROOM_MODEL = (ROOM_S).
+
+
+||ALL_MODEL = (ALERT || ROOM).
