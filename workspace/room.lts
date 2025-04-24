@@ -1,1 +1,4 @@
-ALERT = (alert -> )
+ALERT = STATE,
+STATE = (alert -> all_clear -> STATE).
+
+||ALERT_MODEL = (ALERT).
