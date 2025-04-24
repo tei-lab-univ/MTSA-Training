@@ -1,8 +1,4 @@
+range N = 0..5 //　状態数が有限のものしか扱えないので変数の範囲を指定する
 
-set ALERT_ACTION = {alert, allclear}
-set ROOM_ACTION = {reqEnter, allow, arrive1, arrive2, deny, leave0, leave1}
-
-range ID = 0..7
-
-ALERT = (alert -> allclear -> ALERT).
-ROOM = (reqEnter -> deny -> ROOM)
+ROOM_S = STATE0[0]
+STATE00[n:N] = ()
