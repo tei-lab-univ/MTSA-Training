@@ -2,8 +2,14 @@ ALERT = STATE,
 STATE = (alert -> all_clear -> STATE).
 
 ROOM = STATE1,
-STATE1 = (reqEnter -> STATE2),
-STATE2 = (allow -> STATE1).
+STATE0 = (reqEnter -> STATE1),
+STATE1 = (allow -> STATE2 | deny -> STATE0),
+STATE2 = (arrive[1] -> STATE3),
+STATE3 = (leave[0] -> STATE0 | reqEnter -> STATE4),
+STATE4 = (allow -> STATE5 | deny -> STATE3),
+STATE5 = (arrive[2] -> STATE6),
+STATE6 = (leave[1] -> STATE3 | reqEnter -> STATE7),
+STATE7 = (deny -> STATE6).
 
 ||ALERT_MODEL= (ALERT).
 ||ROOM_MODEL= (ROOM).
