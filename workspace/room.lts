@@ -1,7 +1,7 @@
 ALERT = STATE,
 STATE = (alert -> all_clear -> STATE).
 
-ROOM = STATE1,
+ROOM = STATE0,
 STATE0 = (reqEnter -> STATE1),
 STATE1 = (allow -> STATE2 | deny -> STATE0),
 STATE2 = (arrive[1] -> STATE3),
