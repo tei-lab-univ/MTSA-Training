@@ -14,7 +14,7 @@ STATE7 = (deny -> STATE6).
 
 //別解
 //arrive.1からarrive.5まで
-range N = 0..5　//変数の範囲..状態数を有限にするため
+range N = 0..5 //変数の範囲..状態数を有限にするため
 
 ROOM_S = STATE0[0],
 STATE0[n:N] = (reqEnter->STATE1[n]
