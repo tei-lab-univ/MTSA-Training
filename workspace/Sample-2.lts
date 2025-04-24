@@ -3,4 +3,6 @@
 ALERT_MODEL = ALERT,
 ALERT = (alert -> all_clear -> ALERT).
 
-||ALERT_MODEL = (ALERT).
+ROOM = 
+
+||ALERT_MODEL = (ALERT_MODEL).
