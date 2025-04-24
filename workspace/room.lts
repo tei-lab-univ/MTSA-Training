@@ -1,7 +1,9 @@
 ALERT = STATE,
 STATE = (alert -> all_clear -> STATE),
 
-ROOM = ,
+ROOM = STATE1,
+STATE1 = (reqEnter -> STATE2),
+STATE2 = (allow -> STATE1).
 
-||ALERT_MODEL = (ALERT).
-||ROOM_MODEL = (ROOM).
+||ALERT_MODEL= (ALERT).
+||ROOM_MODEL= (ROOM).
