@@ -1,0 +1,27 @@
+ALERT = STATE,
+STATE = (alert -> all_clear -> STATE).
+
+||ALERT_MODEL= (ALERT).
+
+//解1
+ROOM = STATE0,
+STATE0 = (reqEnter -> STATE1),
+STATE1 = (allow -> STATE2 | deny -> STATE0),
+STATE2 = (arrive[1] -> STATE3),
+STATE3 = (reqEnter -> STATE4 | leave[0] -> STATE0),
+STATE4 = (allow -> STATE5 | deny -> STATE3),
+STATE5 = (arrive[2] -> STATE6),
+STATE6 = (reqEnter -> STATE7 | leave[1] -> STATE3),
+STATE7 = (deny -> STATE6).
+
+
+||ROOM_MODEL= (ROOM).
+
+//-----
+//解2
+// range N = 0..5 //変数の範囲の宣言　... 有限数の数しか扱えない
+
+// ROOM_S = STATE0[0],
+// STATE0[n:0..5]
+
+||ALL_MODEL = (ALERT || ROOM).
