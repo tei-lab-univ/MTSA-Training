@@ -21,3 +21,5 @@ STATE_1[n:N] = (when(n < K)allow -> arrive[n+1]-> STATE_0[n+1] | deny -> STATE_0
 ||ALERT_MODEL = (ALERT_MODEL).
 ||ROOM_MODEL = (ROOM_MODEL).
 ||ROOM_MODEL_NEW = (ROOM_MODEL_NEW).
+
+||Environment = (ALERT_MODEL || ROOM_MODEL_NEW).
