@@ -1,6 +1,7 @@
 /* Environment */
 
-//const N = 2
+const K = 2
+range N = 0..K
 
 ALERT_MODEL = ALERT,
 ALERT = (alert -> all_clear -> ALERT).
@@ -12,6 +13,11 @@ STATE_3 = (leave[0] -> STATE_0 | reqEnter -> STATE_4),
 STATE_4 = (deny -> STATE_3 | allow -> arrive[2] -> STATE_6),
 STATE_6 = (reqEnter -> deny -> STATE_6 | leave[1] -> STATE_3).
 
+ROOM_MODEL_NEW = STATE_0[0],
+STATE_0[n:N] = (reqEnter -> STATE_1[n]),
+STATE_1[n:N] = (allow -> arrive[n+1]-> STATE_0[n+1] | deny -> STATE_0[n]).
+
 
 ||ALERT_MODEL = (ALERT_MODEL).
 ||ROOM_MODEL = (ROOM_MODEL).
+||ROOM_MODEL_NEW = (ROOM_MODEL_NEW).
