@@ -5,8 +5,9 @@ const N = 2
 ALERT_MODEL = ALERT,
 ALERT = (alert -> all_clear -> ALERT).
 
-ROOM_MODEL = ROOM,
-ROOM = (reqEnter -> allow -> arrive[1] -> STATE_3),
+ROOM_MODEL = STATE_0,
+STATE_0 = (reqEnter -> STATE_1),
+STATE_1 = (allow -> arrive[1]-> STATE_3 | deny -> STATE_0),
 STATE_3 = (leave[1] -> ROOM).
 
 ||ALERT_MODEL = (ALERT_MODEL).
