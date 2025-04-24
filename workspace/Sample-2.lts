@@ -1,7 +1,4 @@
 /* Environment */
 
 ALERT_MODEL = ALERT,
-ALERT = 
-(
-	alert -> all_clear -> ALERT
-),
+ALERT = (alert -> all_clear -> ALERT).
