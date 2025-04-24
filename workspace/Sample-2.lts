@@ -8,7 +8,7 @@ ALERT = (alert -> all_clear -> ALERT).
 ROOM_MODEL = STATE_0,
 STATE_0 = (reqEnter -> STATE_1),
 STATE_1 = (allow -> arrive[1]-> STATE_3 | deny -> STATE_0),
-STATE_3 = (leave[1] -> ROOM).
+STATE_3 = (leave[1] -> STATE_0).
 
 ||ALERT_MODEL = (ALERT_MODEL).
 ||ROOM_MODEL = (ROOM_MODEL).
