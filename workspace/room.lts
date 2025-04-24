@@ -1,4 +1,8 @@
+const 
+
 range N = 0..5 //　状態数が有限のものしか扱えないので変数の範囲を指定する
 
-ROOM_S = STATE0[0]
-STATE00[n:N] = ()
+ROOM_S = STATE0[0],
+STATE0[n:N] = (reqEnter -> STATE1[n]
+				| when (n > 0) leave[n-1] -> STATE0[n-1]),
+STATE1[n:N] = (when(n < 5)
