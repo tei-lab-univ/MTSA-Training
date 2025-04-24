@@ -1,5 +1,5 @@
 ALERT = STATE,
-STATE = (alert -> all_clear -> STATE),
+STATE = (alert -> all_clear -> STATE).
 
 ROOM = STATE1,
 STATE1 = (reqEnter -> STATE2),
