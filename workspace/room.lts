@@ -17,12 +17,13 @@ STATE7 = (deny -> STATE6).
 
 //-------
 //以下別解
-range N = 0..5 //変数の範囲宣言 ... 有限数の状態しか扱えない
+const X - 5
+range N = 0..X //変数の範囲宣言 ... 有限数の状態しか扱えない
 
 ROOM_S = STATE0[0],
 STATE0[n:N] = (reqEnter -> STATE1[n]
 			  |when(n > 0) leave[n-1] -> STATE0[n-1]),
-STATE1[n:0..5] = (when(n < 5) allow -> arrive[n+1] -> STATE0[n+1]
+STATE1[n:0..X] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 				 |deny -> STATE0[n]).
 
 
