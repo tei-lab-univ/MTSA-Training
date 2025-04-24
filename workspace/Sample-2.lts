@@ -10,7 +10,8 @@ STATE_0 = (reqEnter -> STATE_1),
 STATE_1 = (allow -> arrive[1]-> STATE_3 | deny -> STATE_0),
 STATE_3 = (leave[0] -> STATE_0 | reqEnter -> STATE_4),
 STATE_4 = (deny -> STATE_3 | allow -> arrive[2] -> STATE_6),
-STATE_6 = (reqEnter -> deny -> leave[1] -> STATE_3).
+STATE_6 = (reqEnter -> deny -> STATE_6 | leave[1] -> STATE_3).
+
 
 ||ALERT_MODEL = (ALERT_MODEL).
 ||ROOM_MODEL = (ROOM_MODEL).
