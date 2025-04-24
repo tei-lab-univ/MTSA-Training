@@ -1,6 +1,6 @@
 /* Environment */
 
-const K = 2
+const K = 5
 range N = 0..K
 
 ALERT_MODEL = ALERT,
