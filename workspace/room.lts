@@ -2,4 +2,5 @@
 set ALERT_ACTION = {alert, allclear}
 set ROOM_ACTION = {reqEnter, allow, arrive1, arrive2, deny, leave0, leave1}
 
-ALERT_S = ALERT
+ALERT0 = {alert -> ALERT1}
+ALERT1 = {allclear -> ALERT0}
