@@ -19,9 +19,10 @@ STATE7 = (deny -> STATE6).
 
 //-----
 //解2
-// range N = 0..5 //変数の範囲の宣言　... 有限数の数しか扱えない
+const X = 5 //変数
+range N = 0..X //変数の範囲の宣言　... 有限数の数しか扱えない
 
-// ROOM_S = STATE0[0],
-// STATE0[n:0..5]
+ROOM_S = STATE0[0],
+STATE0[n:N] = (reqEnter -> STATE1[n])
 
 ||ALL_MODEL = (ALERT || ROOM).
