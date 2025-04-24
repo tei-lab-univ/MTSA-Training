@@ -1,8 +1,16 @@
-const 
+
+ALERT = (alert -> allclear -> ALERT).
+
+||ALERT_MODEL = (ALERT).
 
 range N = 0..5 //　状態数が有限のものしか扱えないので変数の範囲を指定する
 
 ROOM_S = STATE0[0],
 STATE0[n:N] = (reqEnter -> STATE1[n]
-				| when (n > 0) leave[n-1] -> STATE0[n-1]),
-STATE1[n:N] = (when(n < 5)
+				|when (n > 0) leave[n-1] -> STATE0[n-1]),
+STATE1[n:N] = (when(n < 5) allow -> arrive[n+1] -> STATE0[n+1]
+				|deny -> STATE0[n]).
+
+||ROOM_MODEL = (ROOM_S).
+
+||ALL = (ROOM_S || ALERT).
