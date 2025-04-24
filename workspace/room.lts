@@ -18,7 +18,7 @@ range N = 0..2
 ROOM_S = STATE0[0],
 STATE0[n:N] = (reqEnter->STATE1[n]
 			  |when(n > 0) leave[n-1] -> STATE0[n-1]),
-STATE1[n:N] = (when(n < 2) allow -> arrive[n+1] -> STATE2[n] | deny -> STATE0[n]).
+STATE1[n:N] = (when(n < 2) allow -> arrive[n+1] -> STATE0[n+1] | deny -> STATE0[n]).
 
 ||ALERT_MODEL = (ALERT).
 ||ROOM_MODEL = (ROOM_S).
