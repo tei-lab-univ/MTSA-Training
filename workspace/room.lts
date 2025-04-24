@@ -1,0 +1,7 @@
+ALERT = STATE,
+STATE = (alert -> all_clear -> STATE),
+
+ROOM = ,
+
+||ALERT_MODEL = (ALERT).
+||ROOM_MODEL = (ROOM).
