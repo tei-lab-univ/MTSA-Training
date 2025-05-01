@@ -33,7 +33,7 @@ STATE1[n:N] = (when(n < 5) allow -> arrive[n+1] -> STATE0[n+1]
 ltl_property SAFETY1 = [](!arrive[2])
 
 
-controllerSpec Requirement
+controllerSpec Requirement =
 {
 	safety = {SAFETY1}
 	controllable = {allow, dney
