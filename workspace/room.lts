@@ -29,14 +29,20 @@ STATE1[n:N] = (when(n < 5) allow -> arrive[n+1] -> STATE0[n+1]
 ||ALL_MODEL = (ALERT || ROOM).
 
 
-//問題1
+//問題1　常にarrive.2をしない
 ltl_property SAFETY1 = [](!arrive[2])
 
-//問題2
+//問題2　alertしてからall_clearするまでallowしない
 ltl_property SAFETY2 = [](alert -> X(!allow W all_clear))
 
-fluent Emergency = <alert, all_clear>
+fluent Emergency = <alert, all_clear>   //alertが発生してall_clearが発生するまでの間true
 ltl_property SAFETY3 = [](Emergency -> !allow)
+
+//問題3　arrive.1してからleaveするまででないときdenyしない
+//本質:部屋の上限人数でないとき(allowできるとき)denyしない
+fluent Full = <arrive[1], leave[0]>
+ltl_property SAFETY4 = [](!Full -> !deny)
+
 
 controllerSpec Requirement =
 {
