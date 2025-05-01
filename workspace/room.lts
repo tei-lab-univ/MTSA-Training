@@ -40,8 +40,12 @@ ltl_property SAFETY1 = [](!arrive[2])
 //問題2 非常時(alertしてからall_clearするまで)は新たに人を入室(allow)しない
 ltl_property SAFETY2 = [](alert -> X(!allow W all_clear))
 
+fluent Emergency = <alert, all_clear> //alertが発生してall_clearが発生するまでの間true
+ltl_property SAFETY3 = [](Emergency -> !allow)
+
 //問題3 2人以上いる場合でない限り(arrive.2してからleaveするまででないとき)denyしない
-//ltl_property SAFETY3 
+fluent Full = <arrive[2], leave>
+ltl_property SAFETY4 = []
 
 //要求を読み込める形に
 controllerSpec Requirement =
