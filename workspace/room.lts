@@ -8,6 +8,7 @@ STATE1 = (all_clear -> STATE0).
 
 
 //解１
+/*
 ROOM = STATE0,
 STATE0 = (reqEnter -> STATE1),
 STATE1 = (allow -> STATE2 | deny -> STATE0),
@@ -17,12 +18,13 @@ STATE4 = (allow -> STATE5 | deny -> STATE3),
 STATE5 = (arrive[2] -> STATE6),
 STATE6 = (reqEnter -> STATE7 |leave[1] -> STATE3),
 STATE7 = (deny -> STATE6).
+*/
 
 // STATE6をERRORに変えると違反状態に変えられる。
 
 //-----
 //解２
-/*
+
 const X = 5 //変数
 range N = 0..X //変数の範囲の宣言 ... 有限数の状態しか扱えない
 
@@ -33,7 +35,7 @@ STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 			  |deny -> STATE0[n]).
 
 ||ROOM_MODEL= (ROOM_S).
-*/
+
 //[終わった人は！]
 //arrive.1からarrive.5まで扱えるようにROOM_Sを編集してみよう
 
@@ -41,18 +43,23 @@ STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 /*並列合成*/
 ||ALL_MODEL = (ALERT || ROOM).
 
-// Q1
+// 問題1
 ltl_property SAFETY1 = [](!arrive[2]) // 常にarrive.2をしてはいけない []は「常に」を表す。
 
-// Q2
+// 問題2
 ltl_property SAFETY2 = [](alert -> X(!allow W all_clear )) // 矢印は「ならば」、Xは「ネクスト」alertが発火したならばXの中身がそれ以降真になる。Xの中身はWの後のアクションが発火するまでずっとWの手前が真となる。
 //違う書き方もできる
 fluent Emergency = <alert, all_clear> // alertが発生してall_clearが発生するまでの間true
 ltl_property SAFETY3 = [](Emergency -> !allow) // Emergencyの間allowしないと言う感じになる。
 
+// 問題3 部屋が上限人数に達していないとき(allowできるとき)、denyしない。
+// 解釈すると、「1人以上いる場合でない限り(arrive.1してからleaveするまで以外の時) denyしない」
+fluent FULL = <arrive[1], leave[0]>
+ltl_property SAFETY4 = [](!FULL -> !deny)
+
 controllerSpec Requirement = 
 {
-	safety = {SAFETY3}
+	safety = {SAFETY1, SAFETY4}
 	controllable = {allow, deny}
 }
 
