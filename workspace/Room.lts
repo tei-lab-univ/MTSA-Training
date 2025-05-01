@@ -44,3 +44,5 @@ controllerSpec Specification =
 	safety       = {SAFETY}
 	controllable = {allow, deny}
 }
+
+controller ||Controller = (ALL_MODEL)~{Specification}.
