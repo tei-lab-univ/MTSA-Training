@@ -43,3 +43,4 @@ controllerSpec Specification =
 {
 	safety       = {SAFETY}
 	controllable = {allow, deny}
+}
