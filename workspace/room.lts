@@ -26,7 +26,7 @@ STATE1[n:N] = (when(n < 5) allow -> arrive[n+1] -> STATE0[n+1]
 ||ROOM_MODEL = (ROOM_S).
 
 
-||ALL_MODEL = (ALERT || ROOM_S).
+||ALL_MODEL = (ALERT || ROOM).
 
 
 //問題1
