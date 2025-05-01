@@ -52,7 +52,7 @@ STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 ltl_property SAFETY1 = [](!arrive[2])
 
 /*【問題2】非常時（alertしてからall_clearするまで）は新たに人を入室（allow）しない*/
-
+ltl_property SAFETY2 = [](alert -> X(!allow W all_clear))
 
 /*【問題3】2人以上いる場合でない限り（arrive.2してからleaveするまででないとき）denyしない*/
 
@@ -61,7 +61,7 @@ ltl_property SAFETY1 = [](!arrive[2])
 //要求を読み込める形に
 controllerSpec Requirement =
 {
-	safety       = {SAFETY1}
+	safety       = {SAFETY2}
 	controllable = {allow, deny}
 }
 
