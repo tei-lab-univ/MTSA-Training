@@ -41,4 +41,19 @@ STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 /*並列合成*/
 ||ALL_MODEL = (ALERT || ROOM).
 
+// Q1
 ltl_property SAFETY1 = [](!arrive[2]) // 常にarrive.2をしてはいけない []は「常に」を表す。
+
+// Q2
+ltl_property SAFETY2 = [](alert -> X(!allow W all_clear )) // 矢印は「ならば」、Xは「ネクスト」alertが発火したならばXの中身がそれ以降真になる。Xの中身はWの後のアクションが発火するまでずっとWの手前が真となる。
+//違う書き方もできる
+fluent Emergency = <alert, all_clear> // alertが発生してall_clearが発生するまでの間true
+ltl_property SAFETY3 = [](Emergency -> !allow) // Emergencyの間allowしないと言う感じになる。
+
+controllerSpec Requirement = 
+{
+	safety = {SAFETY1, SAFETY2}
+	controllable = {allow, deny}
+}
+
+controller || Controller = (ALL_MODEL)~{Requirement}.
