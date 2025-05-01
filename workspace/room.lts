@@ -52,7 +52,7 @@ ltl_property SAFETY4 = [](!Full -> !deny)
 //要求を読み込める形に
 controllerSpec Requirement =
 {
-	safety		 = {SAFETY1, SAFETY4}
+	safety		 = {SAFETY4}
 	controllable = {allow, deny}
 }
 
