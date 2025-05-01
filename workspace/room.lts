@@ -1,16 +1,44 @@
+/*環境モデル*/
 
-ALERT = (alert -> allclear -> ALERT).
+ALERT = STATE0,
+STATE0 = (alert -> STATE1),
+STATE1 = (all_clear -> STATE0).
 
-||ALERT_MODEL = (ALERT).
+||ALERT_MODEL= (ALERT).
 
-range N = 0..5 //　状態数が有限のものしか扱えないので変数の範囲を指定する
+
+//解１
+ROOM = STATE0,
+STATE0 = (reqEnter -> STATE1),
+STATE1 = (allow -> STATE2 | deny -> STATE0),
+STATE2 = (arrive[1] -> STATE3),
+STATE3 = (reqEnter -> STATE4 |leave[0] -> STATE0),
+STATE4 = (allow -> STATE5 | deny -> STATE3),
+STATE5 = (arrive[2] -> STATE6),
+STATE6 = (reqEnter -> STATE7 |leave[1] -> STATE3),
+STATE7 = (deny -> STATE6).
+
+// STATE6をERRORに変えると違反状態に変えられる。
+
+//-----
+//解２
+/*
+const X = 5 //変数
+range N = 0..X //変数の範囲の宣言 ... 有限数の状態しか扱えない
 
 ROOM_S = STATE0[0],
 STATE0[n:N] = (reqEnter -> STATE1[n]
-				|when (n > 0) leave[n-1] -> STATE0[n-1]),
-STATE1[n:N] = (when(n < 5) allow -> arrive[n+1] -> STATE0[n+1]
-				|deny -> STATE0[n]).
+			  |when(n > 0) leave[n-1] -> STATE0[n-1]),
+STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
+			  |deny -> STATE0[n]).
 
-||ROOM_MODEL = (ROOM_S).
+||ROOM_MODEL= (ROOM_S).
+*/
+//[終わった人は！]
+//arrive.1からarrive.5まで扱えるようにROOM_Sを編集してみよう
 
-||ALL = (ROOM_S || ALERT).
+
+/*並列合成*/
+||ALL_MODEL = (ALERT || ROOM).
+
+ltl_property SAFETY1 = [](!arrive[2]) // 常にarrive.2をしてはいけない []は「常に」を表す。
