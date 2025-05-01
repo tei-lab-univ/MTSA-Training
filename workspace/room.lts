@@ -30,4 +30,7 @@ STATE1[n:0..X] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 ||ALERT_MODEL = (ALERT).
 ||ROOM_MODEL = (ROOM).
 ||ROOM_S_MODEL = (ROOM_S).
+
+//並列合成
 ||ALL_MODEL = (ALERT || ROOM).
+
