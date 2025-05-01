@@ -59,7 +59,7 @@ ltl_property SAFETY2 = [](EMERGENCY -> !allow) //非常時（alertしてからal
 
 controllerSpec Requirement =
 {
-	safety       = {SAFETY}
+	safety       = {SAFETY2}
 	controllable = {allow, deny}
 }
 
