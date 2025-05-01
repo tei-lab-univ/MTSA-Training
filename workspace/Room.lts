@@ -1,13 +1,18 @@
 /*環境モデル*/
 
+/* ALERT */
 ALERT = STATE0,
 STATE0 = (alert -> STATE1),
 STATE1 = (all_clear -> STATE0).
 
 ||ALERT_MODEL= (ALERT).
 
+//-----
+
+/* ROOM */
 
 //解１
+/*
 ROOM = STATE0,
 STATE0 = (reqEnter -> STATE1),
 STATE1 = (allow -> STATE2 | deny -> STATE0),
@@ -17,8 +22,8 @@ STATE4 = (allow -> STATE5 | deny -> STATE3),
 STATE5 = (arrive[2] -> STATE6),
 STATE6 = (reqEnter -> STATE7 |leave[1] -> STATE3),
 STATE7 = (deny -> STATE6).
+*/
 
-//-----
 //解２
 const X = 5 //変数
 range N = 0..X //変数の範囲の宣言 ... 有限数の状態しか扱えない
@@ -38,7 +43,7 @@ STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 
 
 ltl_property SAFETY1 = [](!arrive[2])
-ltl_property SAFETY2 = [](alert -> X(!arrive[1..X] W ))
+ltl_property SAFETY2 = [](alert -> X(!arrive[1..X] W all_clear))
 
 controllerSpec Requirement =
 {
