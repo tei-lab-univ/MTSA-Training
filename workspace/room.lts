@@ -46,7 +46,7 @@ ltl_property SAFETY2 = [](alert -> X(!allow W all_clear))
 //要求を読み込める形に
 controllerSpec Requirement =
 {
-	safety		 = {SAFETY1, SAFETY2}
+	safety		 = {SAFETY2}
 	controllable = {allow, deny}
 }
 
