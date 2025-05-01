@@ -43,8 +43,10 @@ ltl_property SAFETY2 = [](alert -> X(!allow W all_clear))
 fluent Emergency = <alert, all_clear> //alertが発生してall_clearが発生するまでの間true
 ltl_property SAFETY3 = [](Emergency -> !allow)
 
-//問題3 2人以上いる場合でない限り(arrive.2してからleaveするまででないとき)denyしない
-fluent Full = <arrive[2], leave[1]>
+//問題3 部屋に1人以上いる場合でない限り(arrive.1してからleave.0するまででないとき)denyしない
+//本質：部屋の上限人数でない時(allowできる時)denyしない
+//部屋に一人いる間でないならば，denyしない
+fluent Full = <arrive[1], leave[0]>
 ltl_property SAFETY4 = [](!Full -> !deny)
 
 //要求を読み込める形に
