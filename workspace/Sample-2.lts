@@ -34,7 +34,10 @@ ltl_property SAFETY3 = [](Emergency -> !allow)
 /* 部屋に一人いる間でないならば、denyしない, =人数満たなければ人を入れる */
 fluent FULL = <arrive[1], leave[0]>
 ltl_property SAFETY4 = [](!FULL -> !deny)
-
+/*
+間違い例
+ltl_property SAFETY4 = [](arrive[1] -> X(!deny W leave[0]))
+*/
 
 controllerSpec Requirement = 
 {
