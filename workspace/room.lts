@@ -45,12 +45,12 @@ ltl_property SAFETY3 = [](Emergency -> !allow)
 
 //問題3 2人以上いる場合でない限り(arrive.2してからleaveするまででないとき)denyしない
 fluent Full = <arrive[2], leave>
-//ltl_property SAFETY4 = []
+ltl_property SAFETY4 = [](!Full -> !deny)
 
 //要求を読み込める形に
 controllerSpec Requirement =
 {
-	safety		 = {SAFETY3}
+	safety		 = {SAFETY1, SAFETY4}
 	controllable = {allow, deny}
 }
 
