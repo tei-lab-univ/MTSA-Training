@@ -5,21 +5,43 @@ range N = 0..K
 
 ALERT_MODEL = ALERT,
 ALERT = (alert -> all_clear -> ALERT).
-
+/*
 ROOM_MODEL = STATE_0,
 STATE_0 = (reqEnter -> STATE_1),
 STATE_1 = (allow -> arrive[1]-> STATE_3 | deny -> STATE_0),
 STATE_3 = (leave[0] -> STATE_0 | reqEnter -> STATE_4),
 STATE_4 = (deny -> STATE_3 | allow -> arrive[2] -> STATE_6),
 STATE_6 = (reqEnter -> deny -> STATE_6 | leave[1] -> STATE_3).
-
+*/
 ROOM_MODEL_NEW = STATE_0[0],
 STATE_0[n:N] = (reqEnter -> STATE_1[n] | when(n > 0) leave[n-1] -> STATE_0[n-1]),
 STATE_1[n:N] = (when(n < K)allow -> arrive[n+1]-> STATE_0[n+1] | deny -> STATE_0[n]).
 
-
 ||ALERT_MODEL = (ALERT_MODEL).
-||ROOM_MODEL = (ROOM_MODEL).
-||ROOM_MODEL_NEW = (ROOM_MODEL_NEW).
+// ||ROOM_MODEL = (ROOM_MODEL).
+||ROOM_MODEL = (ROOM_MODEL_NEW).
 
 ||Environment = (ALERT_MODEL || ROOM_MODEL_NEW).
+
+
+/* Requirement */
+
+ltl_property SAFETY1 = [](!arrive[2])
+ltl_property SAFETY2 = [](alert -> X(!allow W all_clear))
+fluent Emergency = <alert, all_clear>
+ltl_property SAFETY3 = [](Emergency -> !allow)
+
+/* 部屋に一人いる間でないならば、denyしない, =人数満たなければ人を入れる */
+fluent FULL = <arrive[1], leave[0]>
+ltl_property SAFETY4 = [](!FULL -> !deny)
+
+
+controllerSpec Requirement = 
+{
+	safety = {SAFETY1, SAFETY4}
+	controllable = {allow,deny}
+}
+
+
+/* Controller */
+controller ||Controller = (Environment)~{Requirement}.
