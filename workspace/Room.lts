@@ -48,13 +48,19 @@ STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
  監視モデル（要求）
  ****************************/
 
-/*問題1*/
+/*【問題1】常にarrive.2をしてはいけない*/
+ltl_property SAFETY1 = [](!arrive[2])
 
-fluent EMERGENCY = <alert, all_clear>
 
-ltl_property SAFETY1 = [](!arrive[2]) //2人目以降を入室させない
-//ltl_property SAFETY2 = [](alert -> X(!allow W all_clear)) //非常時（alertしてからall_clearするまで）は新たに人を入室（allow）しない
-//ltl_property SAFETY2 = [](EMERGENCY -> !allow) //非常時（alertしてからall_clearするまで）は新たに人を入室（allow）しない
+/*【問題2】非常時（alertしてからall_clearするまで）は新たに人を入室（allow）しない*/
+//ltl_property SAFETY2 = [](alert -> X(!allow W all_clear)) //常に([])alertの次(X)以降ならば，all_clearするまで(W)allowしない(!)
+
+//fluent EMERGENCY = <alert, all_clear> //alertしてからall_clearするまでの間"ture"
+//ltl_property SAFETY2 = [](EMERGENCY -> !allow) //EMERGENCYがtrueならば，allowしない
+
+
+/*【問題3】２人以上いる場合でない限り（arrive.2してからleaveするまででないとき）denyしない*/
+//ltl_property SAFETY3 = [](alert -> X(!allow W all_clear)) //常に([])alertの次(X)以降ならば，all_clearするまで(W)allowしない(!)
 
 
 controllerSpec Requirement =
