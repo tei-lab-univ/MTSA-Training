@@ -36,7 +36,7 @@ STATE0[n:N] = (reqEnter -> STATE1[n]
 STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 			  |deny -> STATE0[n]).
 
-||ROOM_MODEL= (ROOM_S).
+||ROOM_MODEL= (ROOM).
 
 
 /*並列合成*/
