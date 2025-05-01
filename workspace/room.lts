@@ -40,5 +40,5 @@ controllerSpec Requirement =
 }
 
 
-controllar ||Controllar = (ALL_MODEL)~{Requirement}
+controllar ||Controllar = (ALL_MODEL)~{Requirement}.
 
