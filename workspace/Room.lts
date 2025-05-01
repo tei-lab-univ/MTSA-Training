@@ -59,7 +59,7 @@ ltl_property SAFETY1 = [](!arrive[2])
 //ltl_property SAFETY2 = [](EMERGENCY -> !allow) //EMERGENCYがtrueならば，allowしない
 
 
-/*【問題3】２人以上いる場合でない限り（arrive.2してからleaveするまででないとき）denyしない*/
+/*【問題3】満員の2人以上いる場合でない限り（arrive.2してからleaveするまででないとき）denyしない*/
 //ltl_property SAFETY3 = [](alert -> X(!allow W all_clear)) //常に([])alertの次(X)以降ならば，all_clearするまで(W)allowしない(!)
 
 
