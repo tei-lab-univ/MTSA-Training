@@ -44,7 +44,7 @@ fluent Emergency = <alert, all_clear> //alertが発生してall_clearが発生�
 ltl_property SAFETY3 = [](Emergency -> !allow)
 
 //問題3 2人以上いる場合でない限り(arrive.2してからleaveするまででないとき)denyしない
-fluent Full = <arrive[2], leave>
+fluent Full = <arrive[1], leave[1]>
 ltl_property SAFETY4 = [](!Full -> !deny)
 
 //要求を読み込める形に
