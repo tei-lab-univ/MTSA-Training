@@ -14,7 +14,6 @@ STATE1 = (all_clear -> STATE0).
 /* ROOM */
 
 //解１
-/*
 ROOM = STATE0,
 STATE0 = (reqEnter -> STATE1),
 STATE1 = (allow -> STATE2 | deny -> STATE0),
@@ -24,9 +23,10 @@ STATE4 = (allow -> STATE5 | deny -> STATE3),
 STATE5 = (arrive[2] -> STATE6),
 STATE6 = (reqEnter -> STATE7 |leave[1] -> STATE3),
 STATE7 = (deny -> STATE6).
-*/
+||ROOM_MODEL= (ROOM).
 
 //解２
+/*
 const X = 5 //変数
 range N = 0..X //変数の範囲の宣言 ... 有限数の状態しか扱えない
 
@@ -35,8 +35,8 @@ STATE0[n:N] = (reqEnter -> STATE1[n]
 			  |when(n > 0) leave[n-1] -> STATE0[n-1]),
 STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 			  |deny -> STATE0[n]).
-
 ||ROOM_MODEL= (ROOM).
+*/
 
 
 /*並列合成*/
@@ -48,9 +48,8 @@ STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
  監視モデル（要求）
  ****************************/
 
-/*【問題1】常にarrive.2をしてはいけない*/
+/*【問題1】常に（[]）arrive.2をしてはいけない*/
 ltl_property SAFETY1 = [](!arrive[2])
-
 
 /*【問題2】非常時（alertしてからall_clearするまで）は新たに人を入室（allow）しない*/
 
