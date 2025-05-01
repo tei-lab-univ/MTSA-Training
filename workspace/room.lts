@@ -32,6 +32,8 @@ STATE1[n:N] = (when(n < 5) allow -> arrive[n+1] -> STATE0[n+1]
 
 ltl_property SAFETY1 = [](!arrive[2])
 
+ltl_property SAFETY2 = [](alert -> X(!allow W all_clear))
+
 
 controllerSpec Requirement =
 {
@@ -40,5 +42,5 @@ controllerSpec Requirement =
 }
 
 
-controllar ||Controllar = (ALL_MODEL)~{Requirement}.
+controller ||Controller = (ALL_MODEL)~{Requirement}.
 
