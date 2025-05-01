@@ -23,7 +23,7 @@ STATE7 = (deny -> STATE6).
 const X = 5 //変数
 range N = 0..X //変数の範囲の宣言 ... 有限数の状態しか扱えない
 
-ROOM_S = STATE0[0],
+ROOM = STATE0[0],
 STATE0[n:N] = (reqEnter -> STATE1[n]
 			  |when(n > 0) leave[n-1] -> STATE0[n-1]),
 STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
@@ -37,7 +37,8 @@ STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 
 
 
-ltl_property SAFETY = [](!arrive[2])
+ltl_property SAFETY1 = [](!arrive[2])
+ltl_property SAFETY2 = [](alert -> X(!arrive[1..X] W ))
 
 controllerSpec Requirement =
 {
