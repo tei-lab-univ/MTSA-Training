@@ -52,7 +52,7 @@ ltl_property SAFETY3 = [](Emergency -> !allow) // Emergencyの間allowしない�
 
 controllerSpec Requirement = 
 {
-	safety = {SAFETY1, SAFETY2}
+	safety = {SAFETY3}
 	controllable = {allow, deny}
 }
 
