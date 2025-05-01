@@ -34,3 +34,19 @@ STATE1[n:0..X] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 //並列合成
 ||ALL_MODEL = (ALERT || ROOM).
 
+//問題1 常に([])arrive.2をしてはいけない
+ltl_property SAFETY1 = [](!arrive[2])
+
+//問題2 非常時(alertしてからall_clearするまで)は新たに人を入室(allow)
+
+//問題3 2人以上いる場合でない限り(arrive.2してからleaveするまででないと)
+
+//要求を読み込める形に
+controllerSpec Requierment =
+{
+	safety		 = {SAFETY1}
+	controllable = {allow, deny}
+}
+
+//Controllerを合成
+controller ||Controller = (ALL_MODEL)~{Requirement}.
