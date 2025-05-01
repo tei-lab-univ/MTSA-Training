@@ -68,7 +68,7 @@ ltl_property SAFETY4 = [](!FULL -> !deny)
 controllerSpec Requirement =
 {
 	safety       = {SAFETY1, SAFETY4}
-	controllable = {}
+	controllable = {deny}
 }
 
 //Controllerを合成
