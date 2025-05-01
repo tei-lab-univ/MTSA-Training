@@ -41,7 +41,7 @@ ltl_property SAFETY1 = [](!arrive[2])
 ltl_property SAFETY2 = [](alert -> X(!allow W all_clear))
 
 //問題3 2人以上いる場合でない限り(arrive.2してからleaveするまででないとき)denyしない
-ltl_property SAFETY3 
+//ltl_property SAFETY3 
 
 //要求を読み込める形に
 controllerSpec Requirement =
