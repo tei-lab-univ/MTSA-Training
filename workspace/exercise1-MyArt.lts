@@ -65,13 +65,17 @@ LOCK_B = (unlock_B -> lock_B -> LOCK_B).
 //*****************************************************************************
 fluent A_LOCKED = <lock_A, unlock_A>
 fluent A_UNLOCKED = <unlock_A, lock_A>
-
+fluent A_FULL = <arrive[TH_A], allow_A>
 
 
 fluent B_LOCKED = <lock_B, unlock_B>
 fluent B_UNLOCKED = <unlock_B, lock_B>
+fluent B_FULL = <arrive[TH_B], allow_B>
 
 
+ltl_property VISITOR_RULE_A = [](A_LOCKED -> !allow_A)
+ltl_property LOCK_TIMING_A = [](A_FULL -> lock_A)
+ltl_property UNLOCK_TIMING_A = [](!A_FULL -> unlock_A)
 
 ltl_property SAFETY1 = [](!arrive_A[TH_A+1])
 ltl_property SAFETY2 = [](!arrive_B[TH_B+1])
@@ -83,7 +87,7 @@ ltl_property SAFETY2 = [](!arrive_B[TH_B+1])
 
 controllerSpec Requirement = 
 {
-	safety = {SAFETY1, SAFETY2}
+	safety = {SVISITOR_RULE_A, LOCK_TIMING_A, UNLOCK_TIMING_A}
 	controllable = {ControllableActions}
 }
 
