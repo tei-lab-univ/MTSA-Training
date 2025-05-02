@@ -53,7 +53,7 @@ CHECK_B = (allow_B -> arrive_B[1..K] -> VISIT | deny_B -> arrive_A[1..K] -> VISI
 CHECK_OUT = (allow_Out -> VISIT | deny_Out -> arrive_B[1..K] -> VISIT).
 
 DOOR_LOCK_A = LOCK_A,
-LOCK_A = (unlock_A -> lock_A -> LOCK_A)
+LOCK_A = (unlock_A -> lock_A -> LOCK_A).
 ||LOCK_A = (DOOR_LOCK_A).
 ||Environment = (VISITOR || ROOM_A || ROOM_B).
 
