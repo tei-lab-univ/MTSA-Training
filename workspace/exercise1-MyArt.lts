@@ -94,7 +94,8 @@ ltl_property UNLOCK_TIMING_B = [](!UNLOCK_TIME -> !unlock_B)
 
 controllerSpec Requirement = 
 {
-	safety = {VISITOR_RULE_A, LOCK_RULE_A1, LOCK_TIMING_A, UNLOCK_TIMING_A}
+	safety = {VISITOR_RULE_A, LOCK_RULE_A1, LOCK_TIMING_A, UNLOCK_TIMING_A,
+				VISITOR_RULE_B, LOCK_RULE_B1, LOCK_TIMING_B, UNLOCK_TIMING_B}
 	controllable = {ControllableActions}
 }
 
