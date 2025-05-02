@@ -15,7 +15,7 @@ range N = 0..K
 set VisitorAction = {reqEnter_A, reqEnter_B, reqOut}
 set AllowAction = {allow_A, allow_B, allow_Out}
 set DenyAction = {deny_A, deny_B, deny_Out}
-set MonitorAction = {notEnter, arrive_A[1..K], arrive_B[1..K]}
+set MonitorAction = {arrive_A[1..K], arrive_B[1..K]}
 set DoorAction = {resRoomStatus}
 
 // Environment
@@ -44,3 +44,5 @@ VISIT = (
 CHECK_A = (allow_A -> arrive_A[1..K] -> VISIT | deny_A -> VISIT),
 CHECK_B = (allow_B -> arrive_B[1..K] -> VISIT | deny_B -> arrive_A[1..K] -> VISIT),
 CHECK_OUT = (allow_Out -> VISIT | deny_Out -> arrive_B[1..K] -> VISIT).
+
+||Environment = (VISITOR || ROOM_A || ROOM_B).
