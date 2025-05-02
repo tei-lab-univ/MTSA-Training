@@ -1,0 +1,18 @@
+/*
+
+Exercise - 1
+環境
+つながった部屋が2部屋(A,B)あり部屋の定員はそれぞれ５人
+
+要求
+Aから入りBに一度入ったらAに戻ることができない。
+Aは２人まで、Bは３人まで
+
+*/
+const K = 5
+range N = 0..5
+
+// Environment
+ROOM_A = ROOM_A[0],
+ROOM_A[n:N] = ((when n<K)allow_A -> arrive_A[n+1] -> ROOM_A[n+1] | (when n<K)deny_B -> arrive_A[n+1] -> ROOM_A[n+1] 
+					| (when n>0)reqEnter_B -> ROOM_A[n-1])
