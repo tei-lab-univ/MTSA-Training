@@ -10,9 +10,13 @@ Aは２人まで、Bは３人まで
 
 */
 const K = 5
-range N = 0..5
+range N = 0..K
 
 // Environment
 ROOM_A = ROOM_A[0],
-ROOM_A[n:N] = ((when n<K)allow_A -> arrive_A[n+1] -> ROOM_A[n+1] | (when n<K)deny_B -> arrive_A[n+1] -> ROOM_A[n+1] 
-					| (when n>0)reqEnter_B -> ROOM_A[n-1])
+ROOM_A[n:N] = 
+(
+	when (n<K)allow_A -> arrive_A[n+1] -> ROOM_A[n+1] 
+	| when (n<K)deny_B -> arrive_A[n+1] -> ROOM_A[n+1]
+	| when (n>0)reqEnter_B -> ROOM_A[n-1]
+).
