@@ -54,9 +54,9 @@ CHECK_B = (allow_B -> arrive_B[1..K] -> VISIT | deny_B -> arrive_A[1..K] -> VISI
 CHECK_OUT = (allow_Out -> VISIT | deny_Out -> arrive_B[1..K] -> VISIT).
 
 DOOR_LOCK_A = LOCK_A,
-LOCK_A = (unlock_A -> lock_A -> LOCK_A).
+LOCK_A = (lock_A -> unlock_A -> LOCK_A).
 DOOR_LOCK_B = LOCK_B,
-LOCK_B = (unlock_B -> lock_B -> LOCK_B).
+LOCK_B = (lock_B -> unlock_B -> LOCK_B).
 
 ||Environment = (VISITOR || ROOM_A || ROOM_B || DOOR_LOCK_A || DOOR_LOCK_B).
 
@@ -67,7 +67,8 @@ LOCK_B = (unlock_B -> lock_B -> LOCK_B).
 fluent A_LOCKED = <lock_A, unlock_A>
 fluent A_UNLOCKED = <unlock_A, lock_A>
 fluent A_FULL = <arrive_A[TH_A], allow_A>
-
+fluent A_LOCK_TIME = <arrive_A[TH_A], resRoomStatus>
+fluent A_UNLOCK_TIME = <MonitorAction, resRoomStatus>
 
 fluent B_LOCKED = <lock_B, unlock_B>
 fluent B_UNLOCKED = <unlock_B, lock_B>
@@ -75,8 +76,9 @@ fluent B_FULL = <arrive[TH_B], allow_B>
 
 
 ltl_property VISITOR_RULE_A = [](A_LOCKED -> !allow_A)
-ltl_property LOCK_TIMING_A = [](A_FULL -> !unlock_A)
-ltl_property UNLOCK_TIMING_A = [](!A_FULL -> unlock_A)
+ltl_property LOCK_RULE_A1 = [](arrive_A[TH_A] -> X(resRoomStatus W lock_A))
+ltl_property LOCK_TIMING_A = [](!A_LOCK_TIME -> !lock_A)
+ltl_property UNLOCK_TIMING_A = [](!A_UNLOCK_TIME -> !unlock_A)
 
 ltl_property SAFETY1 = [](!arrive_A[TH_A+1])
 ltl_property SAFETY2 = [](!arrive_B[TH_B+1])
@@ -88,7 +90,7 @@ ltl_property SAFETY2 = [](!arrive_B[TH_B+1])
 
 controllerSpec Requirement = 
 {
-	safety = {VISITOR_RULE_A, LOCK_TIMING_A}
+	safety = {VISITOR_RULE_A, LOCK_RULE_A1, LOCK_TIMING_A, UNLOCK_TIMING_A}
 	controllable = {ControllableActions}
 }
 
