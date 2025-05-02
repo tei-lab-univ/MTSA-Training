@@ -31,3 +31,7 @@ ROOM_B[n:N] =
 	| when(n<K) deny_Out -> arrive_B[n+1] -> ROOM_B[n+1]
 	| when(n>0) reqOut -> ROOM_B[n-1]
 ).
+
+VISITOR = VISIT,
+VISIT = (reqEnter_A -> resRoomStatus -> CHECK_A),
+CHECK_A = (allow_A -> arrive_A[N] -> VISIT | deny_A -> VISIT).
