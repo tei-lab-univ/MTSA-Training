@@ -12,8 +12,11 @@ Aは２人まで、Bは３人まで
 const K = 5
 range N = 0..K
 
-set AllowAction = {allow_A, allow_B}
+set VisitorAction = {reqEnter_A, reqEnter_B, reqOut}
+set AllowAction = {allow_A, allow_B, allow_Out}
+set DenyAction = {deny_A, deny_B, deny_Out}
 set MonitorAction = {notEnter, arrive_A[1..K], arrive_B[1..K]}
+set DoorAction = {resRoomStatus}
 
 // Environment
 ROOM_A = ROOM_A[0],
@@ -33,5 +36,11 @@ ROOM_B[n:N] =
 ).
 
 VISITOR = VISIT,
-VISIT = (reqEnter_A -> resRoomStatus -> CHECK_A),
-CHECK_A = (allow_A -> arrive_A[N] -> VISIT | deny_A -> VISIT).
+VISIT = (
+	reqEnter_A -> resRoomStatus -> CHECK_A
+	| reqEnter_B -> resRoomStatus -> CHECK_B
+	| reqOut -> resRoomStatus -> CHECK_OUT
+),
+CHECK_A = (allow_A -> arrive_A[N] -> VISIT | deny_A -> VISIT),
+CHECK_B = (allow_B -> arrive_B[N] -> VISIT | deny_B -> VISIT),
+CHECK_OUT = (allow_Out -> )
