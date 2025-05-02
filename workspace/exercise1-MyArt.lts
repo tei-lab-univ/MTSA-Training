@@ -42,5 +42,5 @@ VISIT = (
 	| reqOut -> resRoomStatus -> CHECK_OUT
 ),
 CHECK_A = (allow_A -> arrive_A[N] -> VISIT | deny_A -> VISIT),
-CHECK_B = (allow_B -> arrive_B[N] -> VISIT | deny_B -> VISIT),
-CHECK_OUT = (allow_Out -> )
+CHECK_B = (allow_B -> arrive_B[N] -> VISIT | deny_B -> arrive_A[N] -> VISIT),
+CHECK_OUT = (allow_Out -> VISIT | deny_Out -> arrive_B[N] -> VISIT).
