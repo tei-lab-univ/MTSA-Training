@@ -1,7 +1,7 @@
 Adding [systemProperties] PropertySource with lowest search precedence
 Adding [systemEnvironment] PropertySource with lowest search precedence
 Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
-Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@72967906: startup date [Sat May 03 01:25:57 JST 2025]; root of context hierarchy
+Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@72967906: startup date [Sat May 03 02:13:05 JST 2025]; root of context hierarchy
 Adding [systemProperties] PropertySource with lowest search precedence
 Adding [systemEnvironment] PropertySource with lowest search precedence
 Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
@@ -143,7 +143,7 @@ Autowiring by type from bean name 'schedullerFactory' to bean named 'UpdateContr
 Autowiring by type from bean name 'schedullerFactory' to bean named 'UIController'
 Finished creating instance of bean 'schedullerFactory'
 Returning cached instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
-Unable to locate LifecycleProcessor with name 'lifecycleProcessor': using default [org.springframework.context.support.DefaultLifecycleProcessor@49c6c24f]
+Unable to locate LifecycleProcessor with name 'lifecycleProcessor': using default [org.springframework.context.support.DefaultLifecycleProcessor@35f26e72]
 Returning cached instance of singleton bean 'lifecycleProcessor'
 Could not find key 'spring.liveBeansView.mbeanDomain' in any property source
 Returning cached instance of singleton bean 'schedullerFactory'
