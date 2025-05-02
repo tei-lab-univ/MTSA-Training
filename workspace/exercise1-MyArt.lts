@@ -66,7 +66,7 @@ LOCK_B = (unlock_B -> lock_B -> LOCK_B).
 //*****************************************************************************
 fluent A_LOCKED = <lock_A, unlock_A>
 fluent A_UNLOCKED = <unlock_A, lock_A>
-fluent A_FULL = <arrive[TH_A], allow_A>
+fluent A_FULL = <arrive_A[TH_A], allow_A>
 
 
 fluent B_LOCKED = <lock_B, unlock_B>
