@@ -12,6 +12,9 @@ Aは２人まで、Bは３人まで
 const K = 5
 range N = 0..K
 
+set AllowAction = {allow_A, allow_B}
+set MonitorAction = {notEnter, arrive_A[1..K], arrive_B[1..K]}
+
 // Environment
 ROOM_A = ROOM_A[0],
 ROOM_A[n:N] = 
@@ -20,3 +23,11 @@ ROOM_A[n:N] =
 	| when (n<K)deny_B -> arrive_A[n+1] -> ROOM_A[n+1]
 	| when (n>0)reqEnter_B -> ROOM_A[n-1]
 ).
+
+ROOM_B = ROOM_B[0],
+ROOM_B[n:N] =
+(
+	when(n<K) allow_B -> arrive_B[n+1] -> ROOM_B[n+1]
+	| when(n<K) deny_Out -> arrive_B[n+1] -> ROOM_B[n+1]
+	| when(n>0) reqOut -> ROOM_B[n-1]
+)
