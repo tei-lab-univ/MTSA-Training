@@ -78,12 +78,12 @@ fluent UNLOCK_TIME = <MonitorAction, resRoomStatus>
 
 
 ltl_property VISITOR_RULE_A = [](A_LOCKED -> !allow_A)
-ltl_property LOCK_RULE_A1 = [](arrive_A[TH_A] -> X(resRoomStatus W lock_A))
+ltl_property LOCK_RULE_A1 = [](arrive_A[TH_A] -> X(!resRoomStatus W lock_A))
 ltl_property LOCK_TIMING_A = [](!A_LOCK_TIME -> !lock_A)
 ltl_property UNLOCK_TIMING_A = [](!UNLOCK_TIME -> !unlock_A)
 
 ltl_property VISITOR_RULE_B = [](B_LOCKED -> !allow_B)
-ltl_property LOCK_RULE_B1 = [](arrive_B[TH_B] -> X(resRoomStatus W lock_B))
+ltl_property LOCK_RULE_B1 = [](arrive_B[TH_B] -> X(!resRoomStatus W lock_B))
 ltl_property LOCK_TIMING_B = [](!B_LOCK_TIME -> !lock_B)
 ltl_property UNLOCK_TIMING_B = [](!UNLOCK_TIME -> !unlock_B)
 
