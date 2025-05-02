@@ -66,13 +66,13 @@ LOCK_B = (lock_B -> unlock_B -> LOCK_B).
 //*****************************************************************************
 fluent A_LOCKED = <lock_A, unlock_A>
 fluent A_UNLOCKED = <unlock_A, lock_A>
-fluent A_FULL = <arrive_A[TH_A], allow_A>
+fluent A_FULL = <arrive_A[TH_A], allow_B>
 fluent A_LOCK_TIME = <arrive_A[TH_A], resRoomStatus>
 //fluent A_UNLOCK_TIME = <MonitorAction, resRoomStatus>
 
 fluent B_LOCKED = <lock_B, unlock_B>
 fluent B_UNLOCKED = <unlock_B, lock_B>
-fluent B_FULL = <arrive_B[TH_B], allow_B>
+fluent B_FULL = <arrive_B[TH_B], allow_Out>
 fluent B_LOCK_TIME = <arrive_B[TH_B], resRoomStatus>
 fluent UNLOCK_TIME = <MonitorAction, resRoomStatus>
 
