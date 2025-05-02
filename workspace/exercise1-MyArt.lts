@@ -71,7 +71,7 @@ controllerSpec Requirement =
 	controllable = {ControllableActions}
 }
 
-
+||controller Controller = (Environment)~{Requirement}.
 
 
 
