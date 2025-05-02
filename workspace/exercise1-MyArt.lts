@@ -16,9 +16,14 @@ set VisitorAction = {reqEnter_A, reqEnter_B, reqOut}
 set AllowAction = {allow_A, allow_B, allow_Out}
 set DenyAction = {deny_A, deny_B, deny_Out}
 set MonitorAction = {arrive_A[1..K], arrive_B[1..K]}
-set DoorAction = {resRoomStatus}
+set DoorAction = {AllowAction, DenyAction, resRoomStatus}
 
+set ControllableActions = {DoorAction}
+
+
+//*****************************************************************************
 // Environment
+//*****************************************************************************
 ROOM_A = ROOM_A[0],
 ROOM_A[n:N] = 
 (
@@ -46,3 +51,35 @@ CHECK_B = (allow_B -> arrive_B[1..K] -> VISIT | deny_B -> arrive_A[1..K] -> VISI
 CHECK_OUT = (allow_Out -> VISIT | deny_Out -> arrive_B[1..K] -> VISIT).
 
 ||Environment = (VISITOR || ROOM_A || ROOM_B).
+
+
+//*****************************************************************************
+// Requirement
+//*****************************************************************************
+
+ltl_property SAFETY1 = [](!arrive_A[3])
+ltl_property SAFETY2 = [](!arrive_B[4])
+
+
+//*****************************************************************************
+// Controller
+//*****************************************************************************
+
+controllerSpec Requirement = 
+{
+	safety = {SAFETY1, SAFETY2}
+	controllable = {ControllableActions}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
