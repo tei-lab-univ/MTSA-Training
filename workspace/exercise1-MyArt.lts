@@ -11,6 +11,8 @@ Aは２人まで、Bは３人まで
 */
 const K = 5
 range N = 0..K
+const TH_A = 2
+const TH_B = 3
 
 set VisitorAction = {reqEnter_A, reqEnter_B, reqOut}
 set AllowAction = {allow_A, allow_B, allow_Out}
@@ -50,6 +52,9 @@ CHECK_A = (allow_A -> arrive_A[1..K] -> VISIT | deny_A -> VISIT),
 CHECK_B = (allow_B -> arrive_B[1..K] -> VISIT | deny_B -> arrive_A[1..K] -> VISIT),
 CHECK_OUT = (allow_Out -> VISIT | deny_Out -> arrive_B[1..K] -> VISIT).
 
+DOOR_LOCK_A = LOCK_A,
+LOCK_A = (unlock_A -> lock_A -> LOCK_A)
+||LOCK_A = (DOOR_LOCK_A).
 ||Environment = (VISITOR || ROOM_A || ROOM_B).
 
 
@@ -57,8 +62,8 @@ CHECK_OUT = (allow_Out -> VISIT | deny_Out -> arrive_B[1..K] -> VISIT).
 // Requirement
 //*****************************************************************************
 
-ltl_property SAFETY1 = [](!arrive_A[3])
-ltl_property SAFETY2 = [](!arrive_B[4])
+ltl_property SAFETY1 = [](!arrive_A[TH_A+1])
+ltl_property SAFETY2 = [](!arrive_B[TH_B+1])
 
 
 //*****************************************************************************
