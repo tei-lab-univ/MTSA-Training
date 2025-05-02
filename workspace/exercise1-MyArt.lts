@@ -18,7 +18,8 @@ set VisitorAction = {reqEnter_A, reqEnter_B, reqOut}
 set AllowAction = {allow_A, allow_B, allow_Out}
 set DenyAction = {deny_A, deny_B, deny_Out}
 set MonitorAction = {arrive_A[1..K], arrive_B[1..K]}
-set DoorAction = {AllowAction, DenyAction, resRoomStatus}
+set LockAction    = {lock_B,lock_A,unlock_B,unlock_A}
+set DoorAction = {LockAction, AllowAction, DenyAction, resRoomStatus}
 
 set ControllableActions = {DoorAction}
 
