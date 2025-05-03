@@ -33,7 +33,8 @@ MAP =
 	arrive[1] -> pick -> notExist[1] -> arrive[1] -> put -> exist[1] -> MAP
 	| arrive[2] -> pick -> notExist[2] -> arrive[2] -> put -> exist[2] -> MAP
 	| arrive[3] -> pick -> notExist[3] -> arrive[3] -> put -> exist[3] -> MAP
-)
+).
+
 ||AREA_ENVIRONMENT = (MAP_MODEL).
 
 ||ENVIRONMENT = (AREA_ENVIRONMENT || ROBOT_ENVIRONMENT).
