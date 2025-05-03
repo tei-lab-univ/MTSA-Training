@@ -30,12 +30,12 @@ GREEN = (arrive[3] -> put -> exist[3] -> arrive[3] -> pick -> notExist[3] -> GRE
 
 MAP_MODEL = MAP,
 MAP = (arrive[n:1..AREA_NUM] -> pick -> notExist[n] -> NOT_BLOCK),
-NOT_BLOCK = (arrive[n:1..AREA_NUM] -> put -> exist[n] -> NOT_BLOCK)
+NOT_BLOCK = (arrive[n:1..AREA_NUM] -> put -> exist[n] -> NOT_BLOCK).
 
 
 
 
-||AREA_ENVIRONMENT = (MAP).
+||AREA_ENVIRONMENT = (MAP_MODEL).
 
 ||ENVIRONMENT = (AREA_ENVIRONMENT || ROBOT_ENVIRONMENT).
 
