@@ -9,18 +9,19 @@ set MonitorAction = {arrive[1..AREA_NUM], blockDetected[1..BLOCK_NUM], exist[n:1
 
 
 ROBOT_TRANSITION = ROBOT[1],
-ROBOT[n:1..AREA_NUM] = 
-(
-	(when(n!=AREA_NUM) move -> arrive[n+1] -> ROBOT[n+1] | when(n==AREA_NUM) move -> arrive[1] -> ROBOT[1])
-	| (pick -> PICK_CHECK[n])
+ROBOT[n:1..AREA_NUM] = (
+	  when(n!=AREA_NUM) move -> arrive[n+1] -> ROBOT[n+1]
+	| when(n==AREA_NUM) move -> arrive[1] -> ROBOT[1]
+	| pick -> PICK_CHECK[n]
 ),
 PICK_CHECK[n:1..AREA_NUM] = (exist[n] -> detect -> blockDetected -> HOLD_ROBOT[n] | notExist[n] -> notPick -> ROBOT[n]),
 HOLD_ROBOT[n:1..AREA_NUM] = 
-	(
-		(when(n!=AREA_NUM) move -> arrive[n+1] -> HOLD_ROBOT[n+1] | when(n==AREA_NUM) move -> arrive[1] -> HOLD_ROBOT[1])
-		| (put -> PUT_CHECK[n])
-	),
-PUT_CHECK[n:1..AREA_NUM] = (exist[n] -> notPut -> HOLD_ROBOT[n] | notExist[n] -> put -> ROBOT[n]),
+(
+	  when(n!=AREA_NUM) move -> arrive[n+1] -> HOLD_ROBOT[n+1] 
+	| when(n==AREA_NUM) move -> arrive[1] -> HOLD_ROBOT[1]
+	| put -> PUT_CHECK[n]
+),
+PUT_CHECK[n:1..AREA_NUM] = (exist[n] -> notPut -> HOLD_ROBOT[n] | notExist[n] -> put -> ROBOT[n]).
 
 
 ||ROBOT_ENVIRONMENT = (ROBOT_TRANSITION).
