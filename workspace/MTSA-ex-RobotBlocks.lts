@@ -8,7 +8,7 @@ set RobotAction = {move, pick, notPick, put, notPut, detect}
 set MonitorAction = {arrive[1..AREA_NUM], blockDetected[1..BLOCK_NUM]}
 
 
-ROBOT_TRANSITION = ROBOT[n:1..AREA_NUM],
+ROBOT_TRANSITION = ROBOT[1],
 ROBOT[n:1..AREA_NUM] = (when(n!=AREA_NUM) move -> arrive[n+1] -> ROBOT[n+1] | when(n==AREA_NUM) move -> arrive[1] -> ROBOT[1]).
 
 ROBOT_HOLDING = STATE_0,
