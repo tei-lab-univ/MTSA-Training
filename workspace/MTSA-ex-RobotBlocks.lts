@@ -13,7 +13,7 @@ ROBOT[n:1..AREA_NUM] = (when(n!=AREA_NUM) move -> arrive[n+1] -> ROBOT[n+1] | wh
 
 ROBOT_HOLDING = STATE_0,
 STATE_0 = (exist -> pick -> HOLD_BLOCK | notExist -> notPick -> STATE_0),
-HOLD_BLOCK = (detect -> blockDetected -> put -> STATE_0)
+HOLD_BLOCK = (detect -> blockDetected -> put -> STATE_0).
 
 ||ROBOT_ENVIRONMENT = (ROBOT_TRANSITION || ROBOT_HOLDING).
 //*****************************************************************************
