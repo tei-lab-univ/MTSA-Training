@@ -16,6 +16,7 @@ STATE_0 = (exist[n:1..AREA_NUM] -> pick -> HOLD_BLOCK | notExist[n:1..AREA_NUM] 
 HOLD_BLOCK = (detect -> blockDetected -> put -> STATE_0).
 
 ||ROBOT_ENVIRONMENT = (ROBOT_TRANSITION || ROBOT_HOLDING).
+
 /*
 MAP_RED = RED,
 RED = (arrive[1] -> pick -> notExist[1] -> arrive[1] -> put -> exist[1] -> RED).
@@ -26,7 +27,14 @@ YELLOW = (arrive[2] -> pick -> notExist[2] -> arrive[2] -> put -> exist[2] -> YE
 MAP_GREEN = GREEN,
 GREEN = (arrive[3] -> put -> exist[3] -> arrive[3] -> pick -> notExist[3] -> GREEN).
 */
-||AREA_ENVIRONMENT = (MAP_RED || MAP_YELLOW || MAP_GREEN).
+MAP_MODEL = MAP,
+MAP = 
+(
+	arrive[1] -> pick -> notExist[1] -> arrive[1] -> put -> exist[1] -> MAP
+	| arrive[2] -> pick -> notExist[2] -> arrive[2] -> put -> exist[2] -> MAP
+	| arrive[3] -> pick -> notExist[3] -> arrive[3] -> put -> exist[3] -> MAP
+)
+||AREA_ENVIRONMENT = (MAP_MODEL).
 
 ||ENVIRONMENT = (AREA_ENVIRONMENT || ROBOT_ENVIRONMENT).
 
