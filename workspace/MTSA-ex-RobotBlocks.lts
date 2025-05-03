@@ -4,11 +4,18 @@
 
 const AREA_NUM = 3
 const BLOCK_NUM = 2
-set RobotAction = {move[1..AREA_NUM], pick, put, detect}
-set MonitorAction = {arrive[1..AREA_NUM], blockDetected}
+set RobotAction = {move, pick, notPick, put, notPut, detect}
+set MonitorAction = {arrive[1..AREA_NUM], blockDetected[1..BLOCK_NUM]}
 
 
+ROBOT_TRANSITION = ROBOT[n:1..AREA_NUM],
+ROBOT[n:1..AREA_NUM] = (when(n!=AREA_NUM) move -> arrive[n+1] -> ROBOT[n+1] | when(n==AREA_NUM) move -> arrive[1] -> ROBOT[1]).
 
+ROBOT_HOLDING = STATE_0,
+STATE_0 = (exist -> pick -> HOLD_BLOCK | notExist -> notPick -> STATE_0),
+HOLD_BLOCK = (detect -> blockDetected -> put -> STATE_0)
+
+||ROBOT_ENVIRONMENT = (ROBOT_TRANSITION || ROBOT_HOLDING).
 //*****************************************************************************
 // Requirement
 //*****************************************************************************
