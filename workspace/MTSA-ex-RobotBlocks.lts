@@ -27,15 +27,25 @@ YELLOW = (arrive[2] -> pick -> notExist[2] -> arrive[2] -> put -> exist[2] -> YE
 MAP_GREEN = GREEN,
 GREEN = (arrive[3] -> put -> exist[3] -> arrive[3] -> pick -> notExist[3] -> GREEN).
 */
+/*
 MAP_MODEL = MAP,
 MAP = 
 (
 	arrive[1] -> pick -> notExist[1] -> arrive[1] -> put -> exist[1] -> MAP
 	| arrive[2] -> pick -> notExist[2] -> arrive[2] -> put -> exist[2] -> MAP
-	| arrive[3] -> pick -> notExist[3] -> arrive[3] -> put -> exist[3] -> MAP
+	| arrive[3] -> put -> exist[3] -> arrive[3] -> pick -> notExist[3] -> MAP
 ).
+*/
 
-||AREA_ENVIRONMENT = (MAP_MODEL).
+AREA_A = MAP_A,
+MAP_A = (arrive[1] -> pick -> notExist[1] -> arrive[1] -> put -> exist[1] -> MAP_A
+	|arrive[2] -> pick -> notExist[2] -> arrive[2] -> put -> exist[2] -> MAP_B).
+
+AREA_B = MAP_B,
+MAP_B = (arrive[2] -> pick -> notExist[2] -> arrive[2] -> put -> exist[2] -> MAP_B).
+
+
+||AREA_ENVIRONMENT = (AREA_A).
 
 ||ENVIRONMENT = (AREA_ENVIRONMENT || ROBOT_ENVIRONMENT).
 
