@@ -5,17 +5,30 @@
 const AREA_NUM = 3
 const BLOCK_NUM = 2
 set RobotAction = {move, pick, notPick, put, notPut, detect}
-set MonitorAction = {arrive[1..AREA_NUM], blockDetected[1..BLOCK_NUM]}
+set MonitorAction = {arrive[1..AREA_NUM], blockDetected[1..BLOCK_NUM], exist[n:1..AREA_NUM], notExist[n:1..AREA_NUM]}
 
 
 ROBOT_TRANSITION = ROBOT[1],
 ROBOT[n:1..AREA_NUM] = (when(n!=AREA_NUM) move -> arrive[n+1] -> ROBOT[n+1] | when(n==AREA_NUM) move -> arrive[1] -> ROBOT[1]).
 
 ROBOT_HOLDING = STATE_0,
-STATE_0 = (exist -> pick -> HOLD_BLOCK | notExist -> notPick -> STATE_0),
+STATE_0 = (exist[n:1..AREA_NUM] -> pick -> HOLD_BLOCK | notExist[n:1..AREA_NUM] -> notPick -> STATE_0),
 HOLD_BLOCK = (detect -> blockDetected -> put -> STATE_0).
 
-||ROBOT_ENVIRONMENT = (ROBOT_TRANSITION || ROBOT_HOLDING).
+//||ROBOT_ENVIRONMENT = (ROBOT_TRANSITION || ROBOT_HOLDING).
+
+MAP_RED = RED,
+RED = (notExist[1] -> exist[1] -> RED).
+
+MAP_YELLOW = YELLOW,
+YELLOW = (notExist[2] -> exist[2] -> YELLOW).
+
+MAP_GREEN = GREEN,
+GREEN = (exist[3] -> notExist[3] -> GREEN).
+
+||AREA_ENVIRONMENT = (MAP_RED || MAP_YELLOW || MAP_GREEN).
+
+
 //*****************************************************************************
 // Requirement
 //*****************************************************************************
