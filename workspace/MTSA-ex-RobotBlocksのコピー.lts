@@ -25,17 +25,10 @@ PUT_CHECK[n:1..AREA_NUM] = (exist[n] -> notPut -> HOLD_ROBOT[n] | notExist[n] ->
 
 
 ||ROBOT_ENVIRONMENT = (ROBOT_TRANSITION).
+
 /*
 MAP_RED = RED,
-RED = (arrive[1] -> ROBOT_RED),
-ROBOT_RED = (putReq -> exist[1] -> notPut -> ROBOT_RED | pickReq -> exist[1] -> pick -> ROBOT_NO_RED),
-ROBOT_NO_RED = (putReq -> notExist[1] -> put -> ROBOT_RED | pickReq -> exist[1] -> pick -> RED)
-
-MAP_RED = RED,
-RED = (arrive[1] -> {pickReq, putReq} -> exist[1] -> ROBOT_RED_YES),
-ROBOT_RED_YES = (notPut -> ROBOT_RED_YES | pick -> ROBOT_RED_NO),
-ROBOT_RED_NO = ({pickReq, putReq} -> notExist[1] -> ROBOT_RED_YES)
-
+RED = (arrive[1] -> pick -> notExist[1] -> arrive[1] -> put -> exist[1] -> RED).
 
 MAP_YELLOW = YELLOW,
 YELLOW = (arrive[2] -> pick -> notExist[2] -> arrive[2] -> put -> exist[2] -> YELLOW).
@@ -44,22 +37,16 @@ MAP_GREEN = GREEN,
 GREEN = (arrive[3] -> put -> exist[3] -> arrive[3] -> pick -> notExist[3] -> GREEN).
 */
 
-/*
-MAP_MODEL = MAP[1],
-MAP[n:1..AREA_NUM] = (arrive[n:1..AREA_NUM] -> pickReq -> notExist[n] -> NOT_BLOCK),
-NOT_BLOCK = (arrive[n:1..AREA_NUM] -> put -> exist[n] -> NOT_BLOCK).
-
-
 MAP_MODEL = MAP,
-MAP = (arrive[n:1..AREA_NUM] -> pickReq -> notExist[n] -> NOT_BLOCK),
+MAP = (arrive[n:1..AREA_NUM] -> pick -> notExist[n] -> NOT_BLOCK),
 NOT_BLOCK = (arrive[n:1..AREA_NUM] -> put -> exist[n] -> NOT_BLOCK).
-*/
 
 
 
-// ||AREA_ENVIRONMENT = (MAP_MODEL).
 
-// ||ENVIRONMENT = (AREA_ENVIRONMENT || ROBOT_ENVIRONMENT).
+||AREA_ENVIRONMENT = (MAP_MODEL).
+
+||ENVIRONMENT = (AREA_ENVIRONMENT || ROBOT_ENVIRONMENT).
 
 
 //*****************************************************************************
