@@ -28,7 +28,9 @@ PUT_CHECK[n:1..AREA_NUM] = (put -> ROBOT[n]).
 
 MAP_MODEL = AREA,
 AREA = (arrive[1] -> RED | arrive[2] -> YELLOW | arrive[3] -> GREEN),
-RED = (pick -> notExist[1] -> put -> exist[1] -> RED),
+RED = (pick -> notExist[1] -> NOT_RED | arrive[n:1..AREA_NUM] -> MOVE_ROBOT[n]),
+MOVE_ROBOT[n:1..AREA_NUM] = (when(n==1) RED | when(n==2) GREEN | when(n==3) YELLOW),
+NOT_RED =(put -> exist[1] -> RED),
 GREEN = (pick -> notExist[2] -> put -> exist[2] -> GREEN),
 YELLOW = (pick -> notExist[3] -> put -> exist[3] -> YELLOW).
 /*
@@ -54,7 +56,7 @@ NOT_BLOCK = (arrive[n:1..AREA_NUM] -> put -> exist[n] -> NOT_BLOCK).
 ||ENVIRONMENT = (AREA_ENVIRONMENT || ROBOT_ENVIRONMENT).
 */
 
-||AREA_ENVIRONMENT = (MAP_RED || MAP_YELLOW || MAP_GREEN).
+||AREA_ENVIRONMENT = (MAP_MODEL).
 
 //*****************************************************************************
 // Requirement
