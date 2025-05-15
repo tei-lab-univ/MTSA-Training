@@ -4,4 +4,4 @@ PARK=EMPTY,
 EMPTY=(in->FULL),
 FULL=(request->out->EMPTY).
 
-||PARKS = ([NUM_OF_SLOT]:PARK).
+||PARKS = (PARK:[NUM_OF_SLOT]).
