@@ -4,12 +4,12 @@ EMPTY=(in->FULL),
 FULL=(request->out->EMPTY).
 
 GATE=EMPTY,
-EMPTY=(inG->FULL),
-FULL=({outG,inPT1} -> EMPTY).
+EMPTY=({inG, pt1toG}->FULL),
+FULL=({outG,gtoPT1} -> EMPTY).
 
 Path=EMPTY,
-EMPTY=({p[NUM_OF_SLOT].outPK}->FULL),
-FULL=({p[NUM_OF_SLOT].inPK, inG}->EMPTY).
+EMPTY=({p[NUM_OF_SLOT].outPK, gtoPT1}->FULL),
+FULL=({p[NUM_OF_SLOT].in, pt1toG}->EMPTY).
 
 ||PARKS = (p[NUM_OF_SLOT]:PARK).
 ||ENV = (p[NUM_OF_SLOT]:PARK||GATE||Path).
