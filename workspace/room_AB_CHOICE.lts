@@ -1,0 +1,54 @@
+range N = 0..2
+
+// room_ABにreqEnterされてから入る部屋を決めれるver
+ROOM = STATE[0][0],
+// STATE[nA][nB]で、ROOM_AにnA人、ROOM_BにnB人いるかの管理
+STATE[nA:N][nB:N] =
+(// 入室要求
+  reqEnter -> CHOICE[nA][nB]
+  | when(nA > 0) leave_A[nA-1][nB] -> STATE[nA-1][nB]
+  | when(nB > 0) leave_B[nA][nB-1] -> STATE[nA][nB-1]),
+// どちらに入るか選べる：ここが分岐点
+CHOICE[nA:N][nB:N] =
+(
+    when(nA < 2) allow_A -> arrive_A[nA+1][nB] -> STATE[nA+1][nB]
+  | when(nB < 2) allow_B -> arrive_B[nA][nB+1] -> STATE[nA][nB+1]
+  | deny -> STATE[nA][nB]).
+
+ALERT = STATE,
+STATE = (alert -> all_clear -> STATE).
+
+||ENV = (ALERT || ROOM).
+
+// ROOM_Aが満員でないときdeny_Aしてはいけない
+fluent Full_A0 = <arrive_A[2][0], leave_A[1][0]>
+ltl_property SAFETY_A0 = [](!Full_A0 -> !deny)
+fluent Full_A1 = <arrive_A[2][1], leave_A[1][1]>
+ltl_property SAFETY_A1 = [](!Full_A1 -> !deny)
+fluent Full_A2 = <arrive_A[2][2], leave_A[1][2]>
+ltl_property SAFETY_A2 = [](!Full_A2 -> !deny)
+
+// ROOM_Bが満員でないときdeny_Bしてはいけない
+fluent Full_B0 = <arrive_B[0][2], leave_B[0][1]>
+ltl_property SAFETY_B0 = [](!Full_B0 -> !deny)
+fluent Full_B1 = <arrive_B[1][2], leave_B[1][1]>
+ltl_property SAFETY_B1 = [](!Full_B1 -> !deny)
+fluent Full_B2 = <arrive_B[2][2], leave_B[2][1]>
+ltl_property SAFETY_B2 = [](!Full_B2 -> !deny)
+
+controllerSpec Requirement =
+{
+  safety = {
+    SAFETY_A0, SAFETY_B0,
+	SAFETY_A1, SAFETY_B1,
+	SAFETY_A2, SAFETY_B2
+  }
+  controllable = {
+    allow_A, allow_B,
+    deny
+  }
+}
+
+controller ||Controller = (ENV)~{Requirement}.
+
+

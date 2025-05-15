@@ -1,0 +1,51 @@
+range N = 0..2
+
+ROOM_A = STATE0_A[0],
+STATE0_A[n:N] = (
+    reqEnter_A -> STATE1_A[n]
+  | when(n > 0) leave_A[n-1] -> STATE0_A[n-1]),
+STATE1_A[n:N] = (
+    when(n < 2) allow_A -> arrive_A[n+1] -> STATE0_A[n+1]
+  | deny_A -> STATE0_A[n]).
+
+ROOM_B = STATE0_B[0],
+STATE0_B[n:N] = (
+    reqEnter_B -> STATE1_B[n]
+  | when(n > 0) leave_B[n-1] -> STATE0_B[n-1]),
+STATE1_B[n:N] = (
+    when(n < 2) allow_B -> arrive_B[n+1] -> STATE0_B[n+1]
+  | deny_B -> STATE0_B[n]).
+
+
+
+ALERT = STATE,
+STATE = (alert -> all_clear -> STATE).
+
+||ENV = (ALERT || ROOM_A || ROOM_B).
+
+
+// ROOM_Aが満員でないときdeny_Aしてはいけない
+fluent Full_A = <arrive_A[2], leave_A[1]>
+ltl_property SAFETY_A = [](!Full_A -> !deny_A)
+
+// ROOM_Bが満員でないときdeny_Bしてはいけない
+fluent Full_B = <arrive_B[2], leave_B[1]>
+ltl_property SAFETY_B = [](!Full_B -> !deny_B)
+
+
+
+controllerSpec Requirement =
+{
+  safety = {
+    SAFETY_A, SAFETY_B
+  }
+  controllable = {
+    allow_A, deny_A,
+    allow_B, deny_B
+  }
+}
+
+
+controller ||Controller = (ENV)~{Requirement}.
+
+
