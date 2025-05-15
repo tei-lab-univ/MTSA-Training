@@ -3,8 +3,6 @@ PARK = EMPTY,
 EMPTY = (in->FULL),
 FULL = (request->out->EMPTY).
 
-const N = 2 
-
 GATE = EMPTY,
 EMPTY = (inG->FULL), FULL = ({outG, inPT1}->EMPTY).
 
