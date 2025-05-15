@@ -2,7 +2,7 @@ range NUM_OF_SLOT = 1..2
 
 PARK=EMPTY,
 EMPTY=(in->FULL),
-FULL=(request->out->EMPTY).
+FULL=(request->outPK->EMPTY).
 
 GATE=EMPTY,
 EMPTY=({inG, pt1toG}->FULL),
