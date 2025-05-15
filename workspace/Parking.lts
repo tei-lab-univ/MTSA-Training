@@ -1,3 +1,5 @@
+range NUM_OF_SLOT = 0...1
+
 PARK = EMPTY,
 EMPTY = (in -> FULL),
 FULL =(request -> out -> EMPTY).
