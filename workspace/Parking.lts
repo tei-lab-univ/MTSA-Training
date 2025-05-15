@@ -4,4 +4,13 @@ PARK=EMPTY,
 EMPTY=(in->FULL),
 FULL=(request->out->EMPTY).
 
-||PARKS=(p[NUM_OF_SLOT]:PARK).
+GATE=EMPTY,
+EMPTY=(inG->FULL),
+FULL=({outG, inPT1}->EMPTY).
+
+PATH=EMPTY,
+EMPTY=({p[NUM_OF_SLOT], outPK}->FULL),
+FULL=({p[NUM_OF_SLOT], inPK, inG}->EMPTY).
+
+//||PARKS=(p[NUM_OF_SLOT]:PARK).
+||ENV=(p[NUM_OF_SLOT]:PARK||GATE||PATH).
