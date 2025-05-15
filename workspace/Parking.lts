@@ -29,6 +29,6 @@ ltl_property NotReturnPT2=[](gtoPT2->X(!pt2toG W (p[1].in || p[2].in)))
 
 controllerSpec Spec={
 	safety = {NotReturnPT1, NotReturnPT2}
-	controllable = {p[NUM_OF_SLOT].in, p[NUM_OF_SLOT].out, gtoPT1, gtoPT2, pt1toG, pt2toG, inG, outG, pt2topPT1 , pt2topPT3, , pt3topPT2}
+	controllable = {p[NUM_OF_SLOT].in, p[NUM_OF_SLOT].out, gtoPT1, gtoPT2, pt1toG, pt2toG, inG, outG, pt2topPT1 , pt2topPT3, pt3topPT2}
 }
 controller ||Controller = (ENV)~{Spec}.
