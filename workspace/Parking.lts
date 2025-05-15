@@ -5,7 +5,7 @@ EMPTY = (in->FULL),
 FULL = (request->outPK->EMPTY).
 
 GATE = EMPTY,
-EMPTY = ({inG.pt1toG}->FULL),
+EMPTY = ({inG, pt1toG}->FULL),
 FULL = ({outG, gtoPT1}->EMPTY).
 
 Path1 = EMPTY,
