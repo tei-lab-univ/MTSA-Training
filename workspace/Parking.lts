@@ -1,7 +1,15 @@
 range NUM_OF_SLOT = 1..3
-
 PARK = EMPTY,
 EMPTY = (in->FULL),
-FULL=(request->out->EMPTY).
+FULL = (request->out->EMPTY).
+
+const N = 2 
+
+GATE = EMPTY,
+EMPTY = (inG->FULL), FULL = ({outG, inPT1}->EMPTY).
+
+Path = EMPTY,
+EMPTY = ({p[NUM_OF_SLOT].outPK}->FULL), FULL = ({p[NUM_OF_SLOT].inPK, inG}->EMPTY).
 
 ||PARKS = (p[NUM_OF_SLOT]:PARK).
+||ENV = (p[NUM_OF_SLOT]:PARK||GATE||Path).
