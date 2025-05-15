@@ -14,3 +14,13 @@ FULL=({p[NUM_OF_SLOT].in, pt1toG}->EMPTY).
 
 //||PARKS=(p[NUM_OF_SLOT]:PARK).
 ||ENV=(p[NUM_OF_SLOT]:PARK||GATE||PATH).
+
+ltl_roperty NotReturnPT1=[](gtoPT1->X(!pt1toG W (p[1].in||p[2]in)))
+
+controllerSpec Spec={
+	safety = {NotReturnPT1}
+	
+controllable={p[NUM_OF_SLOT].in, p[NUM_OF_SLOT].out, gtoPT1, pt1toG, inG, outG}
+}
+
+controller ||Controller = (ENV)~{Spec}
