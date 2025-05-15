@@ -21,4 +21,4 @@ controllerSpec Spec={
 	safety = {NotReturnPT1}
 	controllable = {p[NUM_OF_SLOT].in, p[NUM_OF_SLOT].out, gtoPT1, pt1toG, inG, outG}
 }
-controller ||Controller = (ENV)~{Spec}
+controller ||Controller = (ENV)~{Spec}.
