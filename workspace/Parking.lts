@@ -1,4 +1,4 @@
-range NUM_OF_SLOT = 1..2
+range NUM_OF_SLOT = 1..3
 
 PARK=EMPTY,
 EMPTY=(in->FULL),
@@ -19,8 +19,7 @@ ltl_roperty NotReturnPT1=[](gtoPT1->X(!pt1toG W (p[1].in||p[2]in)))
 
 controllerSpec Spec={
 	safety = {NotReturnPT1}
-	
-controllable={p[NUM_OF_SLOT].in, p[NUM_OF_SLOT].out, gtoPT1, pt1toG, inG, outG}
+	controllable={p[NUM_OF_SLOT].in, p[NUM_OF_SLOT].out, gtoPT1, pt1toG, inG, outG}
 }
 
 controller ||Controller = (ENV)~{Spec}
