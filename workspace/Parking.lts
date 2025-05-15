@@ -8,6 +8,7 @@ GATE=EMPTY,
 EMPTY=(inG->FULL),
 FULL=({outG, inPT1}->EMPTY).
 
+
 PATH=EMPTY,
 EMPTY=({p[NUM_OF_SLOT], outPK}->FULL),
 FULL=({p[NUM_OF_SLOT], inPK, inG}->EMPTY).
