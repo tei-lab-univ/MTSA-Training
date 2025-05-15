@@ -2,14 +2,14 @@ range NUM_OF_SLOT = 1..2
 
 PARK=EMPTY,
 EMPTY=(in->FULL),
-FULL=(request->out->EMPTY).
+FULL=(request->outPK->EMPTY).
 
 GATE=EMPTY,
 EMPTY=({inG, pt1toG}->FULL),
 FULL=({outG, gtoPT1}->EMPTY).
 
 PATH=EMPTY,
-EMPTY=({p[NUM_OF_SLOT].out, gtoPT1}->FULL),
+EMPTY=({p[NUM_OF_SLOT].outPK, gtoPT1}->FULL),
 FULL=({p[NUM_OF_SLOT].in, pt1toG}->EMPTY).
 
 //||PARKS=(p[NUM_OF_SLOT]:PARK).
