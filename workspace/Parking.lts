@@ -1,0 +1,5 @@
+PARK = EMPTY,
+EMPTY = (in -> FULL),
+FULL =(request -> out -> EMPTY).
+
+||PARKS = (p[NUM_OF_SLOT]:PARK).
