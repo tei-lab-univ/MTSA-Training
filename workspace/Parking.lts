@@ -6,14 +6,22 @@ FULL=(request->outPK->EMPTY).
 
 GATE=EMPTY,
 EMPTY=({inG, pt1toG}->FULL),
-FULL=({outG,gtoPT1} -> EMPTY).
+FULL=({outG, gtoPT1, gtoPT2} -> EMPTY).
 
 Path1=EMPTY,
-EMPTY=({p[NUM_OF_SLOT].outPK, gtoPT1}->FULL),
-FULL=({p[NUM_OF_SLOT].in, pt1toG}->EMPTY).
+EMPTY=({p[1].outPK, gtoPT1, pt2toPT1}->FULL),
+FULL=({p[1].in, pt1toG, pt1toPT2}->EMPTY).
+
+Path2=EMPTY,
+EMPTY=({p[2].outPK, gtoPT2, pt1toPT2, pt3toPT2}->FULL),
+FULL=({p[2].in, pt2toG, pt2toPT1, pt2toPT3}->EMPTY).
+
+Path3=EMPTY,
+EMPTY=({p[3].outPK, pt2toPT3}->FULL),
+FULL=({p[3].in, pt3toPT2}->EMPTY).
 
 ||PARKS = (p[NUM_OF_SLOT]:PARK).
-||ENV = (p[NUM_OF_SLOT]:PARK||GATE||Path).
+||ENV = (p[NUM_OF_SLOT]:PARK||GATE||Path1||Path2||Path3).
 
 ltl_property NotReturnPT1=[](gtoPT1->X(!pt1toG W (p[1].in || p[2].in)))
 
