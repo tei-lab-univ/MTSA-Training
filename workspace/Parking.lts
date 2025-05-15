@@ -9,7 +9,7 @@ FULL=({outG,inPT1} -> EMPTY).
 
 Path=EMPTY,
 EMPTY=({p[NUM_OF_SLOT].outPK}->FULL),
-FULL=({p[NUM_OF_SLOT], inPK, inG}->EMPTY).
+FULL=({p[NUM_OF_SLOT].inPK, inG}->EMPTY).
 
 ||PARKS = (p[NUM_OF_SLOT]:PARK).
 ||ENV = (p[NUM_OF_SLOT]:PARK||GATE||Path).
