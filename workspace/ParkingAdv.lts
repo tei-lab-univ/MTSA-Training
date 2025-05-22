@@ -1,7 +1,7 @@
 range NUM_OF_SLOT = 1..3
 
-set PATH1_IN  = {p[1].outPK, gtoPT1, pt2toPT1}
-set PATH1_OUT = {p[1].outPK, gtoPT1, pt2toPT1}
+set PATH1_IN  = {g1toPT1, pt2toPT1, pt3toPT1, pt4toPT1, p[1].outPKtoPT1, p[5].outPKtoPT1,　p[8].outPKtoPT1}
+set PATH1_OUT = {pt1toG1, pt1toPT2, pt1toPT3, pt1toPT4, p[1].inPKfromPT1, p[5].outPKfromPT1,　p[8].outPKfromPT1}
 
 /* PARK */
 PARK=EMPTY,
