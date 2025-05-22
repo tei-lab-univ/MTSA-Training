@@ -60,12 +60,13 @@ Path38 = EMPTY,
 EMPTY = ({p[3].outPKtoPT38, p[8].outPKtoPT38, g2toPT38, pt13toPT38, pt18toPT38, pt37toPT38}->FULL),
 FULL = ({p[3].inPKfromPT38, p[8].inPKfromPT38, pt38toG2, pt38toPT13, pt38toPT18, pt38toPT37}->EMPTY).
 
-||PARKS = (p[NUM_OF_SLOT]:PARK).
-||ENV = (p[NUM_OF_SLOT]:PARK||GATE||Path1||Path2||Path3).
+||PARKS = (p[1]:PARK1 || p[3]:PARK3 || p[5]:PARK5 || p[7]:PARK7 || p[8]:PARK8).
+||ENV = (p[1]:PARK1 || p[3]:PARK3 || p[5]:PARK5 || p[7]:PARK7 || p[8]:PARK8 || GATE1 || GATE2 || Path1 || Path3 || Path13 || Path15 || Path18 || Path37 || Path38).
+
 
 ltl_property NotReturnPT1=[](gtoPT1->X(!pt1toG W (p[1].in)))
 ltl_property NotReturnPT2=[](gtoPT2->X(!pt2toG W (p[2].in)))
-ltl_property NotReturnPT2=[](gtoPT3->X(!pt3to2 W (p[3].in)))
+ltl_property NotReturnPT3=[](gtoPT3->X(!pt3to2 W (p[3].in)))
 
 controllerSpec Spec = {
 	safety = {NotReturnPT1}
