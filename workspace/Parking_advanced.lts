@@ -21,11 +21,11 @@ EMPTY = ({p[3].outPKtoPT3, pt1toPT3, pt13toPT3, pt37toPT3}->FULL),
 FULL = ({p[3].inPKfromPT3, pt3toPT1, pt3toPT13, pt3toPT37}->EMPTY).
 
 Path13 = EMPTY,
-EMPTY = ({p[1].outPK, p[3].outPK, }->FULL),
-FULL = ({p[3].in, pt3toPT2}->EMPTY).
+EMPTY = ({p[1].outPKtoPT13, p[3].outPKtoPT13, pt1toPT13, pt3toPT13, pt18toPT13, pt38toPT13}->FULL),
+FULL = ({p[1].inPKfromPT13, p[3].inPKfromPT13, pt13toPT1, pt13toPT3, pt13toPT18, pt13toPT38}->EMPTY).
 
 Path15 = EMPTY,
-EMPTY = ({p[3].outPK, pt2toPT3}->FULL),
+EMPTY = ({p[1].outPKtoPT15, p[5].outPKtoPT15, g1toPT15, pt1toPT15, pt18toPT15}->FULL),
 FULL = ({p[3].in, pt3toPT2}->EMPTY).
 
 Path18 = EMPTY,
