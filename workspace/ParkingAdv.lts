@@ -1,5 +1,5 @@
 /*action set*/
-set PATH1_IN   = {pt8toPT11, pt9toPT11, pt12toPT11, p[2].outPKtoPT11, p[5].outPKtoPT11, p[6].outPKtoPT11}
+set PATH1_IN   = {pt8toPT1, pt9toPT1, pt12toPT1, p[2].outPKtoPT1, p[5].outPKtoPT1, p[6].outPKtoPT1}
 set PATH1_OUT = {pt1toG1, pt1toPT2, pt1toPT3, pt1toPT4, p[1].inPKfromPT1, p[5].outPKfromPT1, p[8].outPKfromPT1}
 set PATH2_IN  = {g2toPT2, pt1toPT2, pt4toPT2, pt5toPT2, p[3].outPKtoPT2, p[7].outPKtoPT2, p[8].outPKtoPT2}
 set PATH2_OUT = {pt2toG2, pt2toPT1, pt2toPT4, pt2toPT5, p[3].inPKfromPT2, p[7].outPKfromPT2, p[8].outPKfromPT2}
@@ -18,8 +18,8 @@ set PATH7_OUT = {pt7toPT4, pt7toPT5, pt7toPT6, pt7toPT9, pt7toPT10, p[1].outPKfo
 
 set PATH8_IN   = {pt6toPT8, pt11toPT8, p[2].outPKtoPT8, p[5].outPKtoPT8}
 set PATH8_OUT  = {pt8toPT6, pt8toPT11, p[2].outPKfromPT8, p[5].outPKfromPT8}
-set PATH9_IN   = {pt6toPT9, pt7toPT9, pt11toPT4, pt12toPT9, p[2].outPKtoPT9, p[4].outPKtoPT9}
-set PATH9_OUT  = {pt9toPT6, pt9toPT7, pt4toPT11, pt4toPT9, p[2].outPKfromPT9, p[4].outPKfromPT9}
+set PATH9_IN   = {pt6toPT9, pt7toPT9, pt11toPT9, pt12toPT9, p[2].outPKtoPT9, p[4].outPKtoPT9}
+set PATH9_OUT  = {pt9toPT6, pt9toPT7, pt9toPT11, pt9toPT12, p[2].outPKfromPT9, p[4].outPKfromPT9}
 set PATH10_IN  = {pt7toPT10, pt12toPT10, p[4].outPKtoPT10, p[7].outPKtoPT10}
 set PATH10_OUT = {pt10toPT7, pt10toPT12, p[4].outPKfromPT10, p[7].outPKfromPT10}
 
@@ -31,7 +31,7 @@ set PATH12_OUT = {pt12toPT9, pt12toPT10, pt12toPT11, p[4].outPKtoPT11, p[6].outP
 set PARK1_IN  = {p[1].inPKfromPT1, p[1].inPKfromPT3, p[1].inPKfromPT4, p[1].inPKfromPT6}
 set PARK1_OUT = {p[1].outPKtoPT1, p[1].outPKroPT3, p[1].outPKtoPT4, p[1].outPKtoPT6}
 
-set PARK2_IN  = {p[2].inPKfromPT2, p[2].inPKfromPT3, p[2].inPKfromPT4, p[2].inPKfromPT6}
+set PARK2_IN  = {p[2].inPKfromPT6, p[2].inPKfromPT8, p[2].inPKfromPT9, p[2].inPKfromPT11}
 set PARK2_OUT = {p[2].outPKtoPT6, p[2].outPKroPT8, p[2].outPKtoPT9, p[2].outPKtoPT11}
 
 set PARK3_IN  = {p[3].inPKfromPT2, p[3].inPKfromPT4, p[3].inPKfromPT5, p[3].inPKfromPT7}
@@ -57,7 +57,7 @@ PATH1_IN,PATH2_IN,PATH3_IN,PATH4_IN,PATH5_IN,PATH6_IN,PATH7_IN,PATH8_IN,PATH9_IN
 PATH1_OUT,PATH2_OUT,PATH3_OUT,PATH4_OUT,PATH5_OUT,PATH6_OUT,PATH7_OUT,PATH8_OUT,PATH9_OUT,PATH10_OUT,PATH11_OUT,PATH12_OUT,
 PARK1_IN,PARK2_IN,PARK3_IN,PARK4_IN,PARK5_IN,PARK6_IN,PARK7_IN,PARK8_IN,
 PARK1_OUT,PARK2_OUT,PARK3_OUT,PARK4_OUT,PARK5_OUT,PARK6_OUT,PARK7_OUT,PARK8_OUT,
-request
+request,inG1, pt1toG1,outG1, g1toPT1,inG2, pt2toG2,outG2, g2toPT2
 }
 
 /* PARK */
@@ -160,9 +160,13 @@ ltl_property DoNotEnter1=[](!pt3toPT6)
 ltl_property DoNotEnter2=[](!pt4toPT6)
 ltl_property DoNotEnter3=[](!pt4toPT7)
 ltl_property DoNotEnter4=[](!pt5toPT7)
+ltl_property DoNotEnter5=[](!{p[1].outPKtoPT6})
+ltl_property DoNotEnter6=[](!{p[3].outPKtoPT7})
+ltl_property DoNotEnter7=[](!{p[5].outPKtoPT6,p[5].outPKtoPT8,p[5].outPKtoPT11})
+ltl_property DoNotEnter8=[](!{p[7].outPKtoPT7,p[7].outPKtoPT10,p[7].outPKtoPT12})
 
 controllerSpec Spec={
-    safety = {DoNotEnter1,DoNotEnter2,DoNotEnter3,DoNotEnter4}
+    safety = {DoNotEnter1,DoNotEnter2,DoNotEnter3,DoNotEnter4,DoNotEnter5,DoNotEnter6,DoNotEnter7,DoNotEnter8}
     controllable = ControllableActions
 }
 
