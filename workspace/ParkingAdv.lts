@@ -1,5 +1,3 @@
-range NUM_OF_PARK = 1..8
-
 /*action set*/
 set PATH1_IN   = {pt8toPT11, pt9toPT11, pt12toPT11, p[2].outPKtoPT11, p[5].outPKtoPT11, p[6].outPKtoPT11}
 set PATH1_OUT = {pt1toG1, pt1toPT2, pt1toPT3, pt1toPT4, p[1].inPKfromPT1, p[5].outPKfromPT1, p[8].outPKfromPT1}
@@ -62,7 +60,6 @@ PARK1_OUT,PARK2_OUT,PARK3_OUT,PARK4_OUT,PARK5_OUT,PARK6_OUT,PARK7_OUT,PARK8_OUT,
 request
 }
 
-
 /* PARK */
 PARK1=EMPTY,
 EMPTY=(PARK1_IN->FULL),
@@ -96,7 +93,6 @@ PARK8=EMPTY,
 EMPTY=(PARK8_IN->FULL),
 FULL=(request->PARK8_OUT->EMPTY).
 
-
 /* GATE */
 GATE1=EMPTY,
 EMPTY=({inG1, pt1toG1}->FULL),
@@ -105,7 +101,6 @@ FULL=({outG1, g1toPT1} -> EMPTY).
 GATE2=EMPTY,
 EMPTY=({inG2, pt2toG2}->FULL),
 FULL=({outG2, g2toPT2} -> EMPTY).
-
 
 /* Path */
 Path1=EMPTY,
@@ -161,7 +156,7 @@ FULL =(PATH12_OUT->EMPTY).
 ||AllPath  = (Path1||Path2||Path3||Path4||Path5||Path6||Path7||Path8||Path9||Path10||Path11||Path12). 
 ||ENV      = (AllPARKS||AllGATE||AllPath).
 
-ltl_property NotReturnPT1=[](gtoPT1->X(!pt1toG W (p[1].in || p[2].in)))
+ltl_property NotReturnPT1=[](!{pt3toPT6, pt4toPT6, pt4toPT7, pt5toPT7})
 ltl_property NotReturnPT2=[](gtoPT2->X(!pt2toG W (p[1].in || p[2].in)))
 ltl_property NotReturnPT3=[](pt2toPT3->X(!pt3toPT2 W (p[1].in || p[2].in)))
 ltl_property NotReturnPT4=[](pt1toPT2->X(!pt2toPT1 W (p[1].in || p[2].in)))
