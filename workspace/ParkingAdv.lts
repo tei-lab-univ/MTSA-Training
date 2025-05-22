@@ -6,14 +6,33 @@ PARK = EMPTY,
 EMPTY = (in -> FULL),
 FULL = (request->out->EMPTY).
 
+/* GATE */
 GATE = EMPTY,
 EMPTY = ({inG, pt1toG}->FULL),
 FULL = ({outG, gtoPT1} -> EMPTY).
 
+/* PATH */
 PATH = EMPTY,
 EMPTY = ({p[R].out, gtoPT1}->FULL),
 FULL = ({p[R].in, pt1toG} -> EMPTY).
 
 ||ENV=(p[R]:PARK||GATE||PATH).
 
+set Requests={p[R].request}
 
+ltl_property NotReturnPK1=[](p[1].out->X(!p[1].in W pt1toG))
+ltl_property NotReturnPK2=[](p[2].out->X(!p[2].in W pt1toG))
+
+ltl_property NotReturnTheGate=[](inG->X(!outG W gtoPT1))
+ltl_property NotReturnPT1=[](gtoPT1->X(!pt1toG W (p[1].in || p[2].in)))
+ltl_property NotReturnG=[](pt1toG->X(!gtoPT1 W (outG)))
+
+ltl_property OutWithRequest=((!outG W {Requests}) && [](!outG W {Requests}))
+
+set ControllableAction = {p[R].in, p[R].out, gtoPT1, pt1toG, inG, outG}
+controllerSpec C = {
+	safety = {NotReturnPK1, NotReturnPK2, OUTWithRequest, NotReturnTheGate, NotReturnPT1, NotReturnG}
+	controllable=ControllableAction
+}
+
+controller || CONT = (ENV)~{C}.
