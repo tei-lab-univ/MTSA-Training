@@ -1,5 +1,8 @@
 range NUM_OF_SLOT = 1..3
 
+set PATH1_IN  = {p[1].outPK, gtoPT1, pt2toPT1}
+set PATH1_OUT = {p[1].outPK, gtoPT1, pt2toPT1}
+
 /* PARK */
 PARK=EMPTY,
 EMPTY=(in->FULL),
@@ -11,13 +14,13 @@ EMPTY=({inG1, pt1toG1}->FULL),
 FULL=({outG1, g1toPT1} -> EMPTY).
 
 GATE2=EMPTY,
-EMPTY=({inG, pt1toG}->FULL),
-FULL=({outG, gtoPT1, gtoPT2} -> EMPTY).
+EMPTY=({inG2, pt2toG2}->FULL),
+FULL=({outG2, g2toPT2} -> EMPTY).
 
 /* Path */
 Path1=EMPTY,
-EMPTY=({p[1].outPK, gtoPT1, pt2toPT1}->FULL),
-FULL=({p[1].in, pt1toG, pt1toPT2}->EMPTY).
+EMPTY=(PATH1_IN->FULL),
+FULL =(PATH1_OUT->EMPTY).
 
 Path2=EMPTY,
 EMPTY=({p[2].outPK, gtoPT2, pt1toPT2, pt3toPT2}->FULL),
