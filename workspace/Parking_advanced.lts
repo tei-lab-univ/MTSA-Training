@@ -1,4 +1,4 @@
-range NUM_OF_SLOT = 1..3
+range NUM_OF_SLOT = 1..8
 
 PARK = EMPTY,
 EMPTY = (in->FULL),
@@ -13,14 +13,30 @@ EMPTY = ({inG2, pt37toG2, pt38toG2}->FULL),
 FULL = ({outG2, g2toPT37, g2toPT38}->EMPTY).
 
 Path1 = EMPTY,
-EMPTY = ({p[1].outPK, gtoPT1, pt2toPT1}->FULL),
-FULL = ({p[1].in, pt1toG, pt1toPT2}->EMPTY).
-
-Path2 = EMPTY,
-EMPTY = ({p[2].outPK, gtoPT2, pt1toPT2, pt3toPT2}->FULL),
-FULL = ({p[2].in, pt2toG, pt2toPT1, pt2toPT3}->EMPTY).
+EMPTY = ({p[1].outPKtoPT1, pt3toPT1, pt13toPT1, pt15toPT1}->FULL),
+FULL = ({p[1].inPKfromPT1, pt1toPT3, pt1toPT13, pt1toPT15}->EMPTY).
 
 Path3 = EMPTY,
+EMPTY = ({p[3].outPKtoPT3, pt1toPT3, pt13toPT3, pt37toPT3}->FULL),
+FULL = ({p[3].inPKfromPT3, pt3toPT1, pt3toPT13, pt3toPT37}->EMPTY).
+
+Path13 = EMPTY,
+EMPTY = ({p[1].outPK, p[3].outPK, }->FULL),
+FULL = ({p[3].in, pt3toPT2}->EMPTY).
+
+Path15 = EMPTY,
+EMPTY = ({p[3].outPK, pt2toPT3}->FULL),
+FULL = ({p[3].in, pt3toPT2}->EMPTY).
+
+Path18 = EMPTY,
+EMPTY = ({p[3].outPK, pt2toPT3}->FULL),
+FULL = ({p[3].in, pt3toPT2}->EMPTY).
+
+Path37 = EMPTY,
+EMPTY = ({p[3].outPK, pt2toPT3}->FULL),
+FULL = ({p[3].in, pt3toPT2}->EMPTY).
+
+Path83 = EMPTY,
 EMPTY = ({p[3].outPK, pt2toPT3}->FULL),
 FULL = ({p[3].in, pt3toPT2}->EMPTY).
 
