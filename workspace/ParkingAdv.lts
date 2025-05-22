@@ -1,0 +1,19 @@
+range NUM_OF_SLOT = 1..3
+range R = 1 .. 2
+
+/* PARK */
+PARK = EMPTY,
+EMPTY = (in -> FULL),
+FULL = (request->out->EMPTY).
+
+GATE = EMPTY,
+EMPTY = ({inG, pt1toG}->FULL),
+FULL = ({outG, gtoPT1} -> EMPTY).
+
+PATH = EMPTY,
+EMPTY = ({p[R].out, gtoPT1}->FULL),
+FULL = ({p[R].in, pt1toG} -> EMPTY).
+
+||ENV=(p[R]:PARK||GATE||PATH).
+
+
