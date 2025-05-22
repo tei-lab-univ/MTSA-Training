@@ -1,0 +1,13 @@
+const N = 2
+range R = 1..N
+
+PARK = EMPTY,
+EMPTY = (in->FULL), FULL = (request->out->EMPTY).
+
+GATE = EMPTY,
+EMPTY=(inG->FULL), FULL=({outG, inPT1}->EMPTY).
+
+Path=EMPTY,
+EMPTY=({p[R].outPK}->FULL),FULL=({p[R].inPK, inG}->EMPTY).
+
+||ENV=(p[R]:PARK||Path).
