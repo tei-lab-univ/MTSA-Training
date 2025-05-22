@@ -6,6 +6,9 @@ set PATH1_OUT = {pt1toG1, pt1toPT2, pt1toPT3, pt1toPT4, p[1].inPKfromPT1, p[5].o
 set PATH2_IN  = {g2toPT2, pt1toPT2, pt4toPT2, pt5toPT2, p[3].outPKtoPT2, p[7].outPKtoPT2,　p[8].outPKtoPT2}
 set PATH2_OUT = {pt2toG2, pt2toPT1, pt2toPT4, pt2toPT5, p[3].inPKfromPT2, p[7].outPKfromPT2,　p[8].outPKfromPT2}
 
+set PATH3_IN  = {pt1toPT3, pt6toPT3, p[1].outPKtoPT3, p[5].outPKtoPT3}
+set PATH3_IN  = {pt3toPT1, pt3toPT1, p[1].outPKfromPT3, p[5].outPKfromPT3}
+
 /* PARK */
 PARK=EMPTY,
 EMPTY=(in->FULL),
