@@ -156,14 +156,10 @@ FULL =(PATH12_OUT->EMPTY).
 ||AllPath  = (Path1||Path2||Path3||Path4||Path5||Path6||Path7||Path8||Path9||Path10||Path11||Path12). 
 ||ENV      = (AllPARKS||AllGATE||AllPath).
 
-ltl_property NotReturnPT1=[](!{pt3toPT6, pt4toPT6, pt4toPT7, pt5toPT7})
-ltl_property NotReturnPT2=[](gtoPT2->X(!pt2toG W (p[1].in || p[2].in)))
-ltl_property NotReturnPT3=[](pt2toPT3->X(!pt3toPT2 W (p[1].in || p[2].in)))
-ltl_property NotReturnPT4=[](pt1toPT2->X(!pt2toPT1 W (p[1].in || p[2].in)))
-ltl_property NotReturnPT5=[](pt2toPT1->X(!pt1toPT2 W (p[1].in || p[2].in)))
+ltl_property DoNotEnter=[](!{pt3toPT6, pt4toPT6, pt4toPT7, pt5toPT7})
 
 controllerSpec Spec={
-    safety = {NotReturnPT1, NotReturnPT2}
+    safety = {DoNotEnter}
     controllable = ControllableActions
 }
 controller ||Controller = (ENV)~{Spec}.
