@@ -162,7 +162,7 @@ ltl_property DoNotEnter3=[](!pt4toPT7)
 ltl_property DoNotEnter4=[](!pt5toPT7)
 
 controllerSpec Spec={
-    safety = {DoNotEnter}
+    safety = {DoNotEnter1,DoNotEnter2,DoNotEnter3,DoNotEnter4}
     controllable = ControllableActions
 }
 
