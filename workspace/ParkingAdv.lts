@@ -156,7 +156,10 @@ FULL =(PATH12_OUT->EMPTY).
 ||AllPath  = (Path1||Path2||Path3||Path4||Path5||Path6||Path7||Path8||Path9||Path10||Path11||Path12). 
 ||ENV      = (AllPARKS||AllGATE||AllPath).
 
-ltl_property DoNotEnter=[](!{pt3toPT6, pt4toPT6, pt4toPT7, pt5toPT7})
+ltl_property DoNotEnter1=[](!pt3toPT6)
+ltl_property DoNotEnter2=[](!pt4toPT6)
+ltl_property DoNotEnter3=[](!pt4toPT7)
+ltl_property DoNotEnter4=[](!pt5toPT7)
 
 controllerSpec Spec={
     safety = {DoNotEnter}
