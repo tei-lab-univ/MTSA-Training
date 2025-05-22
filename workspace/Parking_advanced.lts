@@ -1,8 +1,27 @@
 range NUM_OF_SLOT = 1..8
 
-PARK = EMPTY,
+
+PARK1 = EMPTY,
+EMPTY = ({inPKfromPT1, inPKfromPT13, inPKfromPT15, inPKfromPT18}->FULL),
+FULL = (request->{outPKtoPT1, outPKtoPT13, outPKtoPT15, outPKtoPT18}->EMPTY).
+
+PARK3 = EMPTY,
+EMPTY = ({inPKfromPT3, inPKfromPT13, inPKfromPT37, inPKfromPT38}->FULL),
+FULL = (request->{outPKtoPT3, outPKtoPT13, outPKtoPT37, outPKtoPT38}->EMPTY).
+
+PARK5 = EMPTY,
+EMPTY = (->FULL),
+FULL = (request->outPK->EMPTY).
+
+PARK7 = EMPTY,
 EMPTY = (in->FULL),
 FULL = (request->outPK->EMPTY).
+
+PARK8 = EMPTY,
+EMPTY = (in->FULL),
+FULL = (request->outPK->EMPTY).
+
+
 
 GATE1 = EMPTY,
 EMPTY = ({inG1, pt15toG1, pt18toG1}->FULL),
@@ -36,9 +55,9 @@ Path37 = EMPTY,
 EMPTY = ({p[3].outPKtoPT37, p[7].outPKtoPT37, g2toPT37, pt3toPT37, pt38toPT37}->FULL),
 FULL = ({p[3].inPKfromPT37, p[7].inPKfromPT37, pt37toG2, pt37toPT3, pt37toPT38}->EMPTY).
 
-Path83 = EMPTY,
-EMPTY = ({p[3].outPK, pt2toPT3}->FULL),
-FULL = ({p[3].in, pt3toPT2}->EMPTY).
+Path38 = EMPTY,
+EMPTY = ({p[3].outPKtoPT38, p[8].outPKtoPT38, g2toPT38, pt13toPT38, pt18toPT38, pt37toPT38}->FULL),
+FULL = ({p[3].inPKfromPT38, p[8].inPKfromPT38, pt38toG2, pt38toPT13, pt38toPT18, pt38toPT37}->EMPTY).
 
 ||PARKS = (p[NUM_OF_SLOT]:PARK).
 ||ENV = (p[NUM_OF_SLOT]:PARK||GATE||Path1||Path2||Path3).
