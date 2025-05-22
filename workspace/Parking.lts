@@ -1,13 +1,40 @@
-const N = 2
-range R = 1..N
+range NUM_OF_SLOT = 1..3
 
-PARK = EMPTY,
-EMPTY = (in->FULL), FULL = (request->out->EMPTY).
+/* PARK */
+PARK=EMPTY,
+EMPTY=(in->FULL),
+FULL=(request->outPK->EMPTY).
 
-GATE = EMPTY,
-EMPTY=(inG->FULL), FULL=({outG, inPT1}->EMPTY).
+/* GATE */
+GATE=EMPTY,
+EMPTY=({inG, pt1toG}->FULL),
+FULL=({outG, gtoPT1, gtoPT2} -> EMPTY).
 
-Path=EMPTY,
-EMPTY=({p[R].outPK}->FULL),FULL=({p[R].inPK, inG}->EMPTY).
+/* PATH */
+Path1=EMPTY,
+EMPTY=({p[1].outPK, gtoPT1, pt2toPT1}->FULL),
+FULL=({p[1].in, pt1toG, pt1toPT2}->EMPTY).
 
-||ENV=(p[R]:PARK||Path).
+Path2=EMPTY,
+EMPTY=({p[2].outPK, gtoPT2, pt1toPT2, pt3toPT2}->FULL),
+FULL=({p[2].in, pt2toG, pt2toPT1, pt2toPT3}->EMPTY).
+
+Path3=EMPTY,
+EMPTY=({p[3].outPK, pt2toPT3}->FULL),
+FULL=({p[3].in, pt3toPT2}->EMPTY).
+
+||PARKS = (p[NUM_OF_SLOT]:PARK).
+||ENV = (p[NUM_OF_SLOT]:PARK||GATE||Path1||Path2||Path3).
+
+ltl_property NotReturnPT1=[](gtoPT1->X(!pt1toG W (p[1].in || p[2].in)))
+ltl_property NotReturnPT2=[](gtoPT2->X(!pt2toG W (p[1].in || p[2].in)))
+
+ltl_property NotReturnPT3=[](pt2toPT3->X(!pt3toPT2 W (p[1].in || p[2].in)))
+ltl_property NotReturnPT4=[](pt1toPT2->X(!pt2toPT1 W (p[1].in || p[2].in)))
+ltl_property NotReturnPT5=[](pt2toPT1->X(!pt1toPT2 W (p[1].in || p[2].in)))
+
+controllerSpec Spec={
+	safety = {NotReturnPT1, NotReturnPT2}
+	controllable = {p[NUM_OF_SLOT].in, p[NUM_OF_SLOT].out}
+}
+controller ||Controller = (ENV)~{Spec}.
