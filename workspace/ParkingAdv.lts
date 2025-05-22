@@ -12,9 +12,9 @@ set PATH5_IN  = {pt2toPT5, pt7toPT5, p[3].outPKtoPT4, p[7].outPKtoPT5}
 set PATH5_OUT = {pt5toPT2, pt5toPT7, p[3].inPKfromPT4, p[7].inPKfromPT5}
 
 set PATH6_IN  = {pt3toPT6, pt4toPT6, pt7toPT6, pt8toPT6, pt9toPT6, p[1].outPKtoPT6, p[2].outPKtoPT6, p[5].outPKtoPT6}
-set PATH6_OUT = {pt6toPT3, pt6toPT4, pt6toPT7, pt6toPT8, pt6toPT9, p[1].outPKtoPT6, p[2].outPKtoPT6, p[5].outPKtoPT6}
+set PATH6_OUT = {pt6toPT3, pt6toPT4, pt6toPT7, pt6toPT8, pt6toPT9, p[1].inPKtoPT6, p[2].inPKtoPT6, p[5].inPKtoPT6}
 set PATH7_IN  = {pt4toPT7, pt5toPT7, pt6toPT7, pt9toPT7, pt10toPT7, p[1].outPKtoPT7, p[2].outPKtoPT7, p[5].outPKtoPT7}
-set PATH7_OUT = {pt7toPT4, pt7toPT5, pt7toPT6, pt7toPT9, pt7toPT10, p[1].outPKformPT7, p[2].outPKfromPT7, p[5].outPKfromPT7}
+set PATH7_OUT = {pt7toPT4, pt7toPT5, pt7toPT6, pt7toPT9, pt7toPT10, p[1].inPKformPT7, p[2].inPKfromPT7, p[5].inPKfromPT7}
 
 set PATH8_IN   = {pt6toPT8, pt11toPT8, p[2].outPKtoPT8, p[5].outPKtoPT8}
 set PATH8_OUT  = {pt8toPT6, pt8toPT11, p[2].outPKfromPT8, p[5].outPKfromPT8}
