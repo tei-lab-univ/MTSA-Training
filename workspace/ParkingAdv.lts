@@ -2,21 +2,19 @@ range NUM_OF_PARK = 1..8
 
 set PATH1_IN  = {g1toPT1, pt2toPT1, pt3toPT1, pt4toPT1, p[1].outPKtoPT1, p[5].outPKtoPT1,　p[8].outPKtoPT1}
 set PATH1_OUT = {pt1toG1, pt1toPT2, pt1toPT3, pt1toPT4, p[1].inPKfromPT1, p[5].outPKfromPT1,　p[8].outPKfromPT1}
-
 set PATH2_IN  = {g2toPT2, pt1toPT2, pt4toPT2, pt5toPT2, p[3].outPKtoPT2, p[7].outPKtoPT2,　p[8].outPKtoPT2}
 set PATH2_OUT = {pt2toG2, pt2toPT1, pt2toPT4, pt2toPT5, p[3].inPKfromPT2, p[7].outPKfromPT2,　p[8].outPKfromPT2}
-
 set PATH3_IN  = {pt1toPT3, pt6toPT3, p[1].outPKtoPT3, p[5].outPKtoPT3}
 set PATH3_OUT = {pt3toPT1, pt3toPT1, p[1].outPKfromPT3, p[5].outPKfromPT3}
-
 set PATH4_IN  = {pt1toPT4, pt2toPT4, pt6toPT4, pt7toPT4, p[1].outPKtoPT4, p[3].outPKtoPT4}
 set PATH4_OUT = {pt4toPT1, pt4toPT1, pt4toPT1, pt4toPT1, p[1].outPKfromPT4, p[3].outPKfromPT4}
+set PATH5_IN  = {pt2toPT5, pt7toPT5, p[3].outPKtoPT4, p[7].outPKtoPT5}
+set PATH5_OUT = {pt5toPT2, pt5toPT7, p[3].outPKfromPT4, p[7].outPKfromPT5}
+set PATH6_IN  = {pt3toPT6, pt4toPT6, pt7toPT6, pt8toPT6, pt9toPT6, p[1].outPKtoPT6, p[2].outPKtoPT6, p[5].outPKtoPT6}
+set PATH6_OUT = {pt6toPT3, pt6toPT4, pt6toPT7, pt6toPT8, pt6toPT9, p[1].outPKtoPT6, p[2].outPKtoPT6, p[5].outPKtoPT6}
 
-set PATH5_IN  = {pt2toPT5, pt7toPT5, p[3].outPKtoPT4, p[7].outPKtoPT4}
-set PATH5_OUT = {pt5toPT2, pt5toPT7, p[3].outPKfromPT4, p[7].outPKfromPT4}
-
-set PATH6_IN  = {pt2toPT5, pt7toPT5, p[3].outPKtoPT4, p[7].outPKtoPT4}
-set PATH6_OUT = {pt5toPT2, pt5toPT7, p[3].outPKfromPT4, p[7].outPKfromPT4}
+set PATH7_IN  = {pt4toPT7, pt5toPT7, pt6toPT7, pt9toPT7, pt10toPT7, p[1].outPKtoPT7, p[2].outPKtoPT7, p[5].outPKtoPT7}
+set PATH7_OUT = {pt7toPT4, pt7toPT5, pt7toPT6, pt7toPT9, pt7toPT10, p[1].outPKformPT7, p[2].outPKfromPT7, p[5].outPKfromPT7}
 
 /* PARK */
 PARK=EMPTY,
