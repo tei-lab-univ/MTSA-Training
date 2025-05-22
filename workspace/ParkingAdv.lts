@@ -29,28 +29,28 @@ set PATH12_IN  = {pt9toPT12, pt10toPT12, pt11toPT12, p[4].outPKtoPT11, p[6].outP
 set PATH12_OUT = {pt12toPT9, pt12toPT10, pt12toPT11, p[4].inPKformPT11, p[6].inPKformPT11, p[7].inPKformPT11}
 
 set PARK1_IN  = {p[1].inPKfromPT1, p[1].inPKfromPT3, p[1].inPKfromPT4, p[1].inPKfromPT6}
-set PARK1_OUT = {p[1].outPKtoPT1, p[1].outPKroPT3, p[1].outPKtoPT4, p[1].outPKtoPT6}
+set PARK1_OUT = {p[1].outPKtoPT1, p[1].outPKtoPT3, p[1].outPKtoPT4, p[1].outPKtoPT6}
 
 set PARK2_IN  = {p[2].inPKfromPT6, p[2].inPKfromPT8, p[2].inPKfromPT9, p[2].inPKfromPT11}
-set PARK2_OUT = {p[2].outPKtoPT6, p[2].outPKroPT8, p[2].outPKtoPT9, p[2].outPKtoPT11}
+set PARK2_OUT = {p[2].outPKtoPT6, p[2].outPKtoPT8, p[2].outPKtoPT9, p[2].outPKtoPT11}
 
 set PARK3_IN  = {p[3].inPKfromPT2, p[3].inPKfromPT4, p[3].inPKfromPT5, p[3].inPKfromPT7}
-set PARK3_OUT = {p[3].outPKtoPT2, p[3].outPKroPT4, p[3].outPKtoPT5, p[3].outPKtoPT7}
+set PARK3_OUT = {p[3].outPKtoPT2, p[3].outPKtoPT4, p[3].outPKtoPT5, p[3].outPKtoPT7}
 
 set PARK4_IN  = {p[4].inPKfromPT7, p[4].inPKfromPT9, p[4].inPKfromPT10, p[4].inPKfromPT12}
-set PARK4_OUT = {p[4].outPKtoPT7, p[4].outPKroPT9, p[4].outPKtoPT10, p[4].outPKtoPT12}
+set PARK4_OUT = {p[4].outPKtoPT7, p[4].outPKtoPT9, p[4].outPKtoPT10, p[4].outPKtoPT12}
 
 set PARK5_IN  = {p[5].inPKfromPT1, p[5].inPKfromPT3, p[5].inPKfromPT6, p[5].inPKfromPT8, p[5].inPKfromPT11}
-set PARK5_OUT = {p[5].outPKtoPT1, p[5].outPKroPT3, p[5].outPKtoPT6, p[5].outPKtoPT8, p[5].outPKtoPT11}
+set PARK5_OUT = {p[5].outPKtoPT1, p[5].outPKtoPT3, p[5].outPKtoPT6, p[5].outPKtoPT8, p[5].outPKtoPT11}
 
 set PARK6_IN  = {p[6].inPKfromPT11, p[6].inPKfromPT12}
-set PARK6_OUT = {p[6].outPKtoPT11, p[6].outPKroPT12}
+set PARK6_OUT = {p[6].outPKtoPT11, p[6].outPKtoPT12}
 
 set PARK7_IN  = {p[7].inPKfromPT2, p[7].inPKfromPT5, p[7].inPKfromPT7, p[7].inPKfromPT10, p[7].inPKfromPT12}
-set PARK7_OUT = {p[7].outPKtoPT2, p[7].outPKroPT5, p[7].outPKtoPT7, p[7].outPKtoPT10, p[7].outPKtoPT12}
+set PARK7_OUT = {p[7].outPKtoPT2, p[7].outPKtoPT5, p[7].outPKtoPT7, p[7].outPKtoPT10, p[7].outPKtoPT12}
 
 set PARK8_IN  = {p[8].inPKfromPT1, p[8].inPKfromPT2}
-set PARK8_OUT = {p[8].outPKtoPT1, p[8].outPKroPT2}
+set PARK8_OUT = {p[8].outPKtoPT1, p[8].outPKtoPT2}
 
 set ControllableActions = {
 PATH1_IN,PATH2_IN,PATH3_IN,PATH4_IN,PATH5_IN,PATH6_IN,PATH7_IN,PATH8_IN,PATH9_IN,PATH10_IN,PATH11_IN,PATH12_IN,
