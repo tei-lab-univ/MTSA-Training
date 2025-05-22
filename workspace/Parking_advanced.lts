@@ -1,6 +1,6 @@
 range NUM_OF_SLOT = 1..8
 
-
+// PARK
 PARK1 = EMPTY,
 EMPTY = ({inPKfromPT1, inPKfromPT13, inPKfromPT15, inPKfromPT18}->FULL),
 FULL = (request->{outPKtoPT1, outPKtoPT13, outPKtoPT15, outPKtoPT18}->EMPTY).
@@ -10,19 +10,19 @@ EMPTY = ({inPKfromPT3, inPKfromPT13, inPKfromPT37, inPKfromPT38}->FULL),
 FULL = (request->{outPKtoPT3, outPKtoPT13, outPKtoPT37, outPKtoPT38}->EMPTY).
 
 PARK5 = EMPTY,
-EMPTY = (->FULL),
-FULL = (request->outPK->EMPTY).
+EMPTY = (inPKfromPT15->FULL),
+FULL = (request->outPKtoPT15->EMPTY).
 
 PARK7 = EMPTY,
-EMPTY = (in->FULL),
-FULL = (request->outPK->EMPTY).
+EMPTY = (inPKfrom37->FULL),
+FULL = (request->outPKtoPT37->EMPTY).
 
 PARK8 = EMPTY,
-EMPTY = (in->FULL),
-FULL = (request->outPK->EMPTY).
+EMPTY = ({inPKfromPT18, inPKfromPT38}->FULL),
+FULL = (request->{outPKtoPT18, outPKtoPT38}->EMPTY).
 
 
-
+// GATE
 GATE1 = EMPTY,
 EMPTY = ({inG1, pt15toG1, pt18toG1}->FULL),
 FULL = ({outG1, g1toPT15, g1toPT18}->EMPTY).
@@ -31,6 +31,7 @@ GATE2 = EMPTY,
 EMPTY = ({inG2, pt37toG2, pt38toG2}->FULL),
 FULL = ({outG2, g2toPT37, g2toPT38}->EMPTY).
 
+// PATH
 Path1 = EMPTY,
 EMPTY = ({p[1].outPKtoPT1, pt3toPT1, pt13toPT1, pt15toPT1}->FULL),
 FULL = ({p[1].inPKfromPT1, pt1toPT3, pt1toPT13, pt1toPT15}->EMPTY).
