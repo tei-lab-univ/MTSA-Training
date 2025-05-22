@@ -1,4 +1,4 @@
-range NUM_OF_SLOT = 1..8
+// range NUM_OF_SLOT = 1..8
 
 // PARK
 PARK1 = EMPTY,
@@ -71,19 +71,54 @@ FULL = ({p3.inPKfromPT38, p8.inPKfromPT38, pt38toG2, pt38toPT13, pt38toPT18, pt3
 controllerSpec Spec = {
 	// safety = {NotReturnPT1}
 	controllable = {
-		inPKfromPT1, inPKfromPT13, inPKfromPT15, inPKfromPT18, outPKtoPT1, outPKtoPT13, outPKtoPT15, outPKtoPT18,
-		inPKfromPT3, inPKfromPT37, inPKfromPT38, outPKtoPT3, outPKtoPT37, outPKtoPT38,
-		inPKfrom37, outPKtoPT37,
-		inPKfromPT18, inPKfromPT38, outPKtoPT18, outPKtoPT38,
-		inG1, pt15toG1, pt18toG1, outG1, g1toPT15, g1toPT18,
-		inG2, pt37toG2, pt38toG2, outG2, g2toPT37, g2toPT38,
-		p1.outPKtoPT1, pt3toPT1, pt13toPT1, pt15toPT1, p1.inPKfromPT1, pt1toPT3, pt1toPT13, pt1toPT15,
-		p3.outPKtoPT3, pt13toPT3, pt37toPT3, p3.inPKfromPT3, pt3toPT13, pt3toPT37,
-		p1.outPKtoPT13, p3.outPKtoPT13, pt1toPT13, pt3toPT13, pt18toPT13, pt38toPT13, p1.inPKfromPT13, p3.inPKfromPT13, pt13toPT1, pt13toPT3, pt13toPT18, pt13toPT38,
-		p1.outPKtoPT15, p5.outPKtoPT15, g1toPT15, pt1toPT15, pt18toPT15, p1.inPKfromPT15, p5.inPKfromPT15, pt15toG1, pt15toPT1, pt15toPT18,
-		p1.outPKtoPT18, p8.outPKtoPT18, g1toPT18, pt13toPT18, pt15toPT18, pt38toPT18, p1.inPKfromPT18, p8.inPKfromPT18, pt18toG1, pt18toPT13, pt18toPT15, pt18toPT38,
-		p3.outPKtoPT37, p7.outPKtoPT37, g2toPT37, pt3toPT37, pt38toPT37, p3.inPKfromPT37, p7.inPKfromPT37, pt37toG2, pt37toPT3, pt37toPT38,
-		p3.outPKtoPT38, p8.outPKtoPT38, g2toPT38, pt13toPT38, pt18toPT38, pt37toPT38, p3.inPKfromPT38, p8.inPKfromPT38, pt38toG2, pt38toPT13, pt38toPT18, pt38toPT37
+  		// PARK1
+  		p1.inPKfromPT1, p1.inPKfromPT13, p1.inPKfromPT15, p1.inPKfromPT18,
+  		p1.outPKtoPT1, p1.outPKtoPT13, p1.outPKtoPT15, p1.outPKtoPT18,
+
+  		// PARK3
+  		p3.inPKfromPT3, p3.inPKfromPT13, p3.inPKfromPT37, p3.inPKfromPT38,
+  		p3.outPKtoPT3, p3.outPKtoPT13, p3.outPKtoPT37, p3.outPKtoPT38,
+
+  		// PARK5
+  		p5.inPKfromPT15, p5.outPKtoPT15,
+
+  		// PARK7
+  		p7.inPKfrom37, p7.outPKtoPT37,
+
+  		// PARK8
+  		p8.inPKfromPT18, p8.inPKfromPT38, p8.outPKtoPT18, p8.outPKtoPT38,
+
+  		// GATE1, GATE2（GATE系はインスタンス名不要なのでそのまま）
+  		inG1, pt15toG1, pt18toG1, outG1, g1toPT15, g1toPT18,
+  		inG2, pt37toG2, pt38toG2, outG2, g2toPT37, g2toPT38,
+
+  		// PATH1
+  		p1.outPKtoPT1, pt3toPT1, pt13toPT1, pt15toPT1,
+  		p1.inPKfromPT1, pt1toPT3, pt1toPT13, pt1toPT15,
+
+  		// PATH3
+  		p3.outPKtoPT3, pt1toPT3, pt13toPT3, pt37toPT3,
+  		p3.inPKfromPT3, pt3toPT1, pt3toPT13, pt3toPT37,
+
+  		// PATH13
+  		p1.outPKtoPT13, p3.outPKtoPT13, pt1toPT13, pt3toPT13, pt18toPT13, pt38toPT13,
+  		p1.inPKfromPT13, p3.inPKfromPT13, pt13toPT1, pt13toPT3, pt13toPT18, pt13toPT38,
+
+  		// PATH15
+  		p1.outPKtoPT15, p5.outPKtoPT15, g1toPT15, pt1toPT15, pt18toPT15,
+  		p1.inPKfromPT15, p5.inPKfromPT15, pt15toG1, pt15toPT1, pt15toPT18,
+
+  		// PATH18
+  		p1.outPKtoPT18, p8.outPKtoPT18, g1toPT18, pt13toPT18, pt15toPT18, pt38toPT18,
+  		p1.inPKfromPT18, p8.inPKfromPT18, pt18toG1, pt18toPT13, pt18toPT15, pt18toPT38,
+
+  		// PATH37
+  		p3.outPKtoPT37, p7.outPKtoPT37, g2toPT37, pt3toPT37, pt38toPT37,
+  		p3.inPKfromPT37, p7.inPKfromPT37, pt37toG2, pt37toPT3, pt37toPT38,
+
+  		// PATH38
+  		p3.outPKtoPT38, p8.outPKtoPT38, g2toPT38, pt13toPT38, pt18toPT38, pt37toPT38,
+  		p3.inPKfromPT38, p8.inPKfromPT38, pt38toG2, pt38toPT13, pt38toPT18, pt38toPT37
 	}
 }
 controller ||Controller = (ENV)~{Spec}.
