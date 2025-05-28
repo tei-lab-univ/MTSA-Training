@@ -1,0 +1,31 @@
+ALERT = STATE,
+STATE = (alert -> all_clear -> STATE).
+
+ACTION = STATE0,
+STATE0 = (a -> STATE1 | b -> STATE2),
+STATE1 = (c -> STATE3),
+STATE2 = (d -> STATE3),
+STATE3 = (e -> STATE3).
+
+
+||ALERT_MODEL = (ALERT).
+||ACTION_MODEL = (ACTION).
+
+
+||ENV = (ALERT || ACTION).
+
+fluent AtoC = <a, c>
+ltl_property SAFETY0 = [](AtoC -> !e)
+fluent BtoD = <a, c>
+ltl_property SAFETY1 = [](BtoD -> !e)
+
+
+controllerSpec Requirement =
+{
+	safety = {SAFETY0, SAFETY1}
+	controllable = {a, b}
+}
+
+
+controller ||Controller = (ENV)~{Requirement}.
+
