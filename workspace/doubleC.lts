@@ -4,8 +4,8 @@
 ACTION = STATE0,
 STATE0 = (a -> STATE1),
 STATE1 = (b -> STATE2),
-STATE2 = (c -> STATE3),
-STATE3 = (c -> STATE3).
+STATE2 = (c -> STATE3 | d -> STATE3),
+STATE3 = (c -> STATE3 | d -> STATE3).
 //||ALERT_MODEL = (ALERT).
 //||ACTION_MODEL = (ACTION).
 
