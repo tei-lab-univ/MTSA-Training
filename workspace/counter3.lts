@@ -9,8 +9,8 @@ STATE[n:N] = (
 
 ||ENV = (ACTION).
 
-fluent FF = <inc[1], inc[2]>
-ltl_property SAFETY0 = [](FF -> !inc[3])
+fluent FF = <inc[1], inc[3]>
+ltl_property SAFETY0 = [](FF -> !start)
 
 controllerSpec Requirement =
 {
