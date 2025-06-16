@@ -21,4 +21,4 @@ controllerSpec Requirement =
 }
 
 // ========== システム定義 ==========
-||SYSTEM = (ENV)~{Requirement}
+controller ||Controller = (ENV)~{Requirement}
