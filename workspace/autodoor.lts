@@ -1,0 +1,24 @@
+// ========== 環境モデル ==========
+ENV = E0,
+E0 = (approach -> E1),
+E1 = (open -> E2),
+E2 = (pass -> E3 | close -> E0),
+E3 = (pass_done -> E0).
+
+// ========== Fluent定義 ==========
+fluent PeoplePresent = <approach, pass_done>
+fluent DoorOpen = <open, close>
+
+// ========== 安全性要求 ==========
+ltl_property SAFETY1 = [](PeoplePresent -> !close)        // 人がいるのにドアを閉じてはいけない
+ltl_property SAFETY2 = [](!DoorOpen -> pass)                 // ドアが開いていないと通過してはいけない
+
+// ========== コントローラスペック ==========
+controllerSpec Requirement =
+{
+  safety = { SAFETY1, SAFETY2 }
+  controllable = { open, close }
+}
+
+// ========== システム定義 ==========
+||SYSTEM = (ENV)~{Requirement}
