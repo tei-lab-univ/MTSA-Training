@@ -1,4 +1,3 @@
-
 ENV = E0,
 E0 = (approach -> E1),
 E1 = (open -> E2),
@@ -11,7 +10,7 @@ fluent DoorOpen = <open, close>
 
 
 ltl_property SAFETY1 = [](PeoplePresent -> !close)        // 人がいるのにドアを閉じてはいけない
-ltl_property SAFETY2 = [](!DoorOpen -> !pass)                 // ドアが開いていないと通過してはいけない
+ltl_property SAFETY2 = [](!DoorOpen -> !pass)             // ドアが開いていないと通過してはいけない
 
 
 controllerSpec Requirement =
