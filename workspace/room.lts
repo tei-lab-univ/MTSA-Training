@@ -37,7 +37,7 @@ STATE1[n:N] = (when(n < X) allow -> arrive[n+1] -> STATE0[n+1]
 ||ROOM_MODEL= (ROOM_S).
 
 MOD = STATE00,
-STATE00 = (arrive[1] -> ERROR)
+STATE00 = (arrive[1] -> ERROR).
 ||MOD_MODEL = (MOD).
 
 
