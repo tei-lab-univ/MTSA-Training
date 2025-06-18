@@ -46,7 +46,7 @@ STATE00 = (arrive[2] -> ERROR).
 
 
 /*並列合成*/
-||ENV_MODEL = (ROOM_S || ALERT)
+||ENV_MODEL = (ROOM_S || ALERT).
 ||ALL_MODEL = (ALERT || ROOM_S || MOD).
 
 // 問題1
