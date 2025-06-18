@@ -1,0 +1,120 @@
+//******************************************************************************
+//*  Sample-1.lts (for MTSA)
+//*  Create Date      : 2024/12/3
+//*  Creator Name     : 
+//*  MTSA run command : [java -jar -Xmx8G mtsa.jar] メモリサイズに応じて8Gは要変更
+//*****************************************************************************/
+
+
+//*****************************************************************************
+// Environment
+//*****************************************************************************
+
+/* set variable */
+const N = 2 //Nomber of Drone
+const S = 2 //Max Height
+
+range DroneID = 1..N
+set   Drones = {drone[DroneID]}
+
+const MaxX = 2 //ドローンは前後の数字の行先にしか移動できない（最小2）
+const MaxY = 2 //ドローンは前後の数字の行先にしか移動できない（最小2）
+const MaxH = S //ドローンは前後の数字の高さにしか移動できない
+
+range X = 1..MaxX
+range Y = 1..MaxY
+range H = 1..MaxH
+set Direction = {n,s,e,w}
+
+/* set Actions (事象の集合) */
+set ControllerbleActions = {[Drones].battery['safe], [Drones].takeoff, [Drones].land, [Drones].up, [Drones].down, [Drones].move[Direction]}
+
+
+/* Drone モデル */
+
+//電池残量管理
+BATTERY = SAFE,
+SAFE = (battery['low] -> LOW),
+LOW  = (battery['safe] -> SAFE).
+
+//移動管理(こいつを高度flyだけと移動moveだけ分割したい)
+MOVE = (takeoff -> arrive[1][1][1] -> ACTION[1][1][1]),
+ACTION[x:X][y:Y][h:H] = (when(x > 1)    move['w] -> arrive[x-1][y][h] -> ACTION[x-1][y][h]
+				        |when(x < MaxX) move['e] -> arrive[x+1][y][h] -> ACTION[x+1][y][h]
+				        |when(y > 1)    move['s] -> arrive[x][y-1][h] -> ACTION[x][y-1][h]
+				        |when(y < MaxY) move['n] -> arrive[x][y+1][h] -> ACTION[x][y+1][h]
+						|when(h > 1)    down     -> arrive[x][y][h-1] -> ACTION[x][y][h-1]
+						|when(h < MaxH) up       -> arrive[x][y][h+1] -> ACTION[x][y][h+1]
+                        |when(h == 1)   land -> MOVE).
+
+|| DroneEnvironment = ([Drones]:BATTERY || [Drones]:MOVE).
+
+
+//             N
+//   ┏━━━┳━━━┳━━━┳━━━┳━━━┓
+//   ┃   ┃   ┃   ┃   ┃   ┃
+//   ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+//   ┃   ┃   ┃   ┃   ┃   ┃
+//   ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+// W ┃   ┃   ┃   ┃   ┃   ┃ E
+//   ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+//   ┃   ┃   ┃   ┃   ┃   ┃
+//   ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+//   ┃ * ┃   ┃   ┃   ┃   ┃
+//   ┗━━━┻━━━┻━━━┻━━━┻━━━┛
+//             S
+// x座標は横マス（一番左が1，一番右がMaxX）
+// y座標は縦マス（一番下が1，一番上がMaxY）
+// * = 初期座標（1,1）
+
+//*****************************************************************************
+// Requirement
+//*****************************************************************************
+
+fluent LANDING[drone:Drones] = <[drone].land,[drone].takeoff> initially 1
+fluent LOW_BATTERY[drone:Drones] = <[drone].battery['low],[drone].battery['safe]> initially 0
+
+ltl_property P_LOW_BATTERY_LAND_1   = [](!LANDING['drone.[1]] -> !['drone.[1]].battery['safe])
+ltl_property P_LOW_BATTERY_UP_1     = [](LOW_BATTERY['drone.[1]] -> !['drone.[1]].up)
+ltl_property P_LOW_BATTERY_MOVE_X_1 = [](LOW_BATTERY['drone.[1]] -> !['drone.[1]].move['e])
+ltl_property P_LOW_BATTERY_MOVE_Y_1 = [](LOW_BATTERY['drone.[1]] -> !['drone.[1]].move['n])
+
+ltl_property P_LOW_BATTERY_LAND_2   = [](!LANDING['drone.[2]] -> !['drone.[2]].battery['safe])
+ltl_property P_LOW_BATTERY_UP_2     = [](LOW_BATTERY['drone.[2]] -> !['drone.[2]].up)
+ltl_property P_LOW_BATTERY_MOVE_X_2 = [](LOW_BATTERY['drone.[2]] -> !['drone.[2]].move['e])
+ltl_property P_LOW_BATTERY_MOVE_Y_2 = [](LOW_BATTERY['drone.[2]] -> !['drone.[2]].move['n])
+
+ltl_property P_NO_COLLISON_11 = [](['drone.[1]].arrive[X][Y][1] -> X(![Drones].arrive[X][Y][1] W {['drone.[1]].arrive[X][Y][H], ['drone.[1]].land}))
+ltl_property P_NO_COLLISON_12 = [](['drone.[1]].arrive[X][Y][2] -> X(![Drones].arrive[X][Y][2] W {['drone.[1]].arrive[X][Y][H], ['drone.[1]].land}))
+
+ltl_property P_NO_COLLISON_21 = [](['drone.[2]].arrive[X][Y][1] -> X(![Drones].arrive[X][Y][1] W {['drone.[2]].arrive[X][Y][H], ['drone.[2]].land}))
+ltl_property P_NO_COLLISON_22 = [](['drone.[2]].arrive[X][Y][2] -> X(![Drones].arrive[X][Y][2] W {['drone.[2]].arrive[X][Y][H], ['drone.[2]].land}))
+
+//*****************************************************************************
+// Controller
+//*****************************************************************************
+
+/* 従来の離散制御器合成 */
+controllerSpec Specification =
+{
+	safety       = {
+					P_LOW_BATTERY_LAND_1,
+					P_LOW_BATTERY_UP_1,
+					P_LOW_BATTERY_MOVE_X_1,
+					P_LOW_BATTERY_MOVE_Y_1,
+					P_NO_COLLISON_11,
+					P_NO_COLLISON_12,
+
+					P_LOW_BATTERY_LAND_2,
+					P_LOW_BATTERY_UP_2,
+					P_LOW_BATTERY_MOVE_X_2,
+					P_LOW_BATTERY_MOVE_Y_2,
+					P_NO_COLLISON_21,
+					P_NO_COLLISON_22,
+				   }
+	//liveness     = {GOAL}
+	controllable = {ControllerbleActions}
+}
+controller ||TrasitionalController = (DroneEnvironment)~{Specification}.
+controller ||Controller = ([Drones]:BATTERY || [Drones]:MOVE)~{Specification}.
+

@@ -25,7 +25,7 @@ STATE7 = (deny -> STATE6).
 //-----
 //解２
 
-const X = 5 //変数
+const X = 2 //変数
 range N = 0..X //変数の範囲の宣言 ... 有限数の状態しか扱えない
 
 ROOM_S = STATE0[0],
@@ -59,7 +59,7 @@ ltl_property SAFETY4 = [](!FULL -> !deny)
 
 controllerSpec Requirement = 
 {
-	safety = {SAFETY1, SAFETY4}
+	safety = {SAFETY1}
 	controllable = {allow, deny}
 }
 
