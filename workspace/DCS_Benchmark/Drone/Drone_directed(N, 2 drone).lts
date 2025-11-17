@@ -124,11 +124,10 @@ controllerSpec Specification =
 	controllable = {ControllerbleActions}
 	marking = {illuminate}
 	nonblocking
-	/*
+	
 	comparison   = {
 					['drone.[1]].takeoff, ['drone.[2]].takeoff,
                    }
-	*/
 }
 controller ||TraditionalController = (DroneEnvironment)~{Specification}.
 controller ||Controller = ([Drones]:BATTERY||[Drones]:MOVE||LED_CONTROL)~{Specification}.
