@@ -1,0 +1,65 @@
+//集合
+set Type = {online, offline}
+
+//環境モデル
+Model1 = STATE0,
+STATE0 = (unlock -> enter -> lock -> STATE0).
+
+Model2 = STATE0,
+STATE0 = (access[Type] -> lock -> STATE0).
+
+Model3 = STATE0,
+STATE0 = (open -> close -> STATE0).
+
+
+//監視モデル
+fluent TIMING_ACCESS = <access[Type], lock> initially 0
+ltl_property SAFETY1 = [](!TIMING_ACCESS -> !{unlock, enter})
+ltl_property MINIMISE_SAFETY1 = [](!TIMING_ACCESS -> !{unlock, enter})
+
+fluent TIMING_OPEN  = <{open, close}, enter> initially 0
+ltl_property SAFETY2  = [](!TIMING_OPEN -> !{open, close})
+ltl_property MINIMISE_SAFETY2  = [](!TIMING_OPEN -> !{open, close})
+
+
+controllerSpec SpecificationAll =
+{
+	safety       = {SAFETY1, SAFETY2}
+	controllable = {access[Type],open,close,unlock,lock,enter}
+	monitoring //これ入れると中間生成モデル全て記載されます．
+}
+
+controllerSpec SpecificationAll_Minimise =
+{
+	safety       = {MINIMISE_SAFETY1, MINIMISE_SAFETY2}
+	controllable = {access[Type],open,close,unlock,lock,enter}
+	monitoring //これ入れると中間生成モデル全て記載されます．
+}
+
+//自動で制御器合成(階段マークを押して合成)
+||Environment = (Model1 || Model2 || Model3 || MINIMISE_SAFETY1 || MINIMISE_SAFETY2).
+controller ||Controller_NO_MINIMISE = (Model1 || Model2 || Model3)~{SpecificationAll}.
+controller ||Controller_Minimise = (Model1 || Model2 || Model3)~{SpecificationAll_Minimise}.
+
+
+
+/* 以下は，手動で段階的制御器合成（||マークを押して合成）*/
+/*
+controllerSpec Specification1 =
+{
+	safety       = {SAFETY1}
+	controllable = {a,b,x,y,on,off,return}
+}
+
+controllerSpec Specification2 =
+{
+	safety       = {SAFETY2}
+	controllable = {a,b,x,y,on,off,return}
+}
+
+controller ||C1 = (Model1 || Model2)~{Specification1}.
+controller ||C2 = (C1 || Model3)~{Specification2}.
+||Contoller_Manual = C2.
+*/
+
+
