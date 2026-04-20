@@ -10,8 +10,8 @@ const NumB = M
 
 
 MACHINE = STAY,
-STAY = (ready -> {consumeA, consumeB} -> CONSUMED),	
-CONSUMED = (exit -> {reqSupplyA, reqSupplyB} -> STAY).
+STAY = ({reqSupplyA, reqSupplyB} -> ready -> READY),	
+READY = ({consumeA, consumeB} -> exit -> STAY).
 
 
 STOCK_A = STOCK_A[NumA],
@@ -24,20 +24,22 @@ when(n == 0) notSupplyA -> STOCK_A[0]
 STOCK_B = STOCK_B[NumB],
 STOCK_B[n:0..NumB] = (reqSupplyB -> JUDGE[n]),
 JUDGE[n:0..NumB] = (
-when(n > 0)supplyB -> STOCK_B[n-1] | 
-when(n == 0)notSupplyB -> STOCK_A[0]
+when(n > 0) supplyB -> STOCK_B[n-1] | 
+when(n == 0) notSupplyB -> STOCK_B[0]
 ).
 
 
-SHELF = SHELF[0, 0],
-SHELF[n:0..NumA, m:0..NumB] = (
-supplyA[k:1..NumA] -> SHELF[n+1, m] | 
-supplyB[k:1..NumA] -> SHELF[n, m+1]
-)
+SHELF = SHELF[0][0],
+SHELF[n:0..NumA][m:0..NumB] = (
+when(n < NumA)supplyA -> SHELF[n+1][m] | 
+when(m < NumB)supplyB -> SHELF[n][m+1] |
+when(n > 0)   consumeA -> SHELF[n-1][m] | 
+when(m > 0)   consumeB -> SHELF[n][m-1]
+).
 
 
 
-||Environment = (MACHINE || STOCK_A || STOCK_B).
+||Environment = (MACHINE || STOCK_A || STOCK_B || SHELF).
 
 
 
