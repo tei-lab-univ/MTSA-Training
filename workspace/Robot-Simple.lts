@@ -2,4 +2,4 @@ ENVIRONMENT = STAY,
 STAY = (ready -> {consumeA, consumeB} -> CONSUMED),
 CONSUMED = (exit -> {supplyA, supplyB} -> STAY).
 
-||Environment = ENVIRONMENT
+||Environment = ENVIRONMENT.
