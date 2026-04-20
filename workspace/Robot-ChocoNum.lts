@@ -15,10 +15,10 @@ CONSUMED = (exit -> {supplyA, supplyB} -> STAY).
 
 
 STOCK_A = STOCK_A[NumA],
-STOCK_A[n:1..NumA] = consumeA -> STOCK_A[n-1].
+STOCK_A[n:0..NumA] = (when(n > 0)supplyA -> STOCK_A[n-1] | when(n = 0)cantSupplyA -> STOCK_A[0]).
 
 STOCK_B = STOCK_B[NumB],
-STOCK_B[n:1..NumB] = consumeB -> STOCK_B[n-1].
+STOCK_B[n:1..NumB] = (when(n > 0)supplyB -> STOCK_B[n-1] | when(n = 0)cantSupplyB -> STOCK_B[0]).
 
 
 ||Environment = (MACHINE || STOCK_A || STOCK_B).
@@ -42,4 +42,4 @@ controllerSpec Spec = {
 	safety = {SUPPLY_TIMING1, SUPPLY_TIMING2}
 	controllable = {supplyA, supplyB}
 } 
-controller ||Controller = (ENVIRONMENT)~{Spec}.
+controller ||Controller = (Environment)~{Spec}.
