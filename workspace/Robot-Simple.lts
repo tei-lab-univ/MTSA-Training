@@ -1,0 +1,16 @@
+ENVIRONMENT = STAY,
+STAY = (ready -> {consumeA, consumeB} -> CONSUMED),
+CONSUMED = (exit -> {supplyA, supplyB} -> STAY).
+
+||Environment = ENVIRONMENT.
+
+ltl_property SUPPLY_TIMING1 = [](consumeA -> X(!consumeA W supplyA))
+ltl_property SUPPLY_TIMING2 = [](consumeB -> X(!consumeB W supplyB))
+//ltl_property SUPPLY_TIMING3 = [](consumeB -> X(!action W supplyB))
+//ltl_property SUPPLY_TIMING4 = [](consumeB -> (!action W supplyB))
+
+controllerSpec Spec = {
+	safety = {SUPPLY_TIMING1, SUPPLY_TIMING2/*, SUPPLY_TIMING3, SUPPLY_TIMING4*/}
+	controllable = {supplyA, supplyB}
+} 
+controller ||Controller = (ENVIRONMENT)~{Spec}.
