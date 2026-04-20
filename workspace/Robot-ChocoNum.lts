@@ -10,7 +10,10 @@ const NumB = M
 
 
 MACHINE = STAY,
-STAY = ({reqSupplyA, reqSupplyB} -> ready -> READY),	
+STAY = (
+reqSupplyA -> {supplyA, notSupplyA} -> ready -> READY |
+reqSupplyB -> {supplyB, notSupplyB} -> ready -> READY 
+),	
 READY = ({consumeA, consumeB} -> exit -> STAY).
 
 
@@ -41,7 +44,7 @@ when(m > 0)   consumeB -> SHELF[n][m-1]
 
 ||Environment = (MACHINE || STOCK_A || STOCK_B || SHELF).
 
-
+/*
 
 //****************************************************
 // Requireiment
@@ -58,6 +61,7 @@ ltl_property SUPPLY_TIMING2 = [](consumeB -> X(!consumeB W supplyB))
 
 controllerSpec Spec = {
 	safety = {SUPPLY_TIMING1, SUPPLY_TIMING2}
-	controllable = {supplyA, supplyB}
+	controllable = {reqSupplyA, reqSupplyB}
 } 
 controller ||Controller = (Environment)~{Spec}.
+*/
