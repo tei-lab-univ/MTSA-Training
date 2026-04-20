@@ -15,10 +15,10 @@ CONSUMED = (exit -> {supplyA, supplyB} -> STAY).
 
 
 STOCK_A = STOCK_A[NumA],
-STOCK_A[n:0..NumA] = (when(n > 0)supplyA -> STOCK_A[n-1] | when(n == 0)cantSupplyA -> STOCK_A[0]).
+STOCK_A[n:0..NumA] = (when(n > 0)supplyA -> STOCK_A[n-1] | when(n == 0)supplyA -> STOCK_A[0]).
 
 STOCK_B = STOCK_B[NumB],
-STOCK_B[n:0..NumB] = (when(n > 0)supplyB -> STOCK_B[n-1] | when(n == 0)cantSupplyB -> STOCK_B[0]).
+STOCK_B[n:0..NumB] = (when(n > 0)supplyB -> STOCK_B[n-1] | when(n == 0)supplyB -> STOCK_B[0]).
 
 
 ||Environment = (MACHINE || STOCK_A || STOCK_B).
@@ -31,8 +31,8 @@ STOCK_B[n:0..NumB] = (when(n > 0)supplyB -> STOCK_B[n-1] | when(n == 0)cantSuppl
 ltl_property SUPPLY_TIMING1 = [](consumeA -> X(!consumeA W supplyA))
 ltl_property SUPPLY_TIMING2 = [](consumeB -> X(!consumeB W supplyB))
 
-
-
+// ltl_property SOLDOUT_A = []
+// ltl_property SOLDOUT_B = []
 
 //****************************************************
 // Controller
