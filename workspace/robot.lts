@@ -1,0 +1,10 @@
+ENVIRONMENT = STAY,
+STAY = (ready -> {consumeA, consumeB} -> CONSUMED),
+CONSUMED = (exit -> {supplyA, supplyB} -> STAY).
+
+
+ENVIRONMENT_2 = STATE0,
+STATE0 = (ready -> STATE1),
+STATE1 = ({consumeA, consumeB} -> STATE2),
+STATE2 = (exit -> STATE3),
+STATE3 = ({supplyA, supplyB} -> STATE0).
