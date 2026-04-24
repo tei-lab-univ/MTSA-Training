@@ -1,0 +1,21 @@
+ENVIRONMENT = STAY, // 初期状態
+STAY = (ready -> {consumeA, consumeB} -> CONSUMED), // 状態は大文字から始めて
+CONSUMED = (exit -> {supplyA, supplyB} -> STAY).
+
+// アクションは小文字から
+// 続きは, 終わりは. = ()で遷移をかく
+
+// 分けて書くと↓のような感じに
+// ENVIRONMENT = STATE0.
+// STATE0 = (ready -> STATE1).
+// STATE1 = ({consumeA, consumeB} -> STATE2). ...
+
+
+ltl_property SUPPLY_TIMING1 = [](consumeA -> X(!consumeA W supplyA))
+ltl_property SUPPLY_TIMING2 = [](consumeB -> X(!consumeB W supplyB))
+
+controllerSpec Spec = {
+	safety = {SUPPLY_TIMING1, SUPPLY_TIMING2}
+	controllable = {supplyA, supplyB}
+}
+controller ||Controller = (ENVIRONMENT)~{Spec}.
