@@ -1,0 +1,13 @@
+ENVIRONMENT=STATE_0,
+STATE_0=(reqEnter->STATE_1),
+STATE_1=(deny->STATE_0 | allow->STATE_2),
+STATE_2=(arrive[1]->STATE_1),
+STATE_3=(reqEnter->STATE_4 | leave[0]->STATE_0),
+STATE_4=(deny->STATE_3 | allow->STATE_5),
+STATE_5=(arrive[2]->STATE_6),
+STATE_6=(reqEnter->STATE_7 | leave[1]->STATE_3),
+STATE_7=(deny->STATE_6).
+
+ENVIRONMENT=STATE_0,
+STATE_0=(alert->STATE_1).
+STATE_1=(all_clear->STATE_0).
