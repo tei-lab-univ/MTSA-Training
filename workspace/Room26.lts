@@ -9,7 +9,7 @@ STATE_6 = (reqEnter -> STATE_7 | leave[1] -> STATE_3),
 STATE_7 = (deny -> STATE_6).
 
 
-const X = 2
+const X = 100
 range N = 0..X
 
 ROOM_S = STATE0[0],
@@ -24,4 +24,4 @@ ALERT = STATE_0,
 STATE_0 = (alert -> STATE_1),
 STATE_1 = (all_clear -> STATE_0).
 
-||ALL_MODEL = (ALERT || ROOM).
+
