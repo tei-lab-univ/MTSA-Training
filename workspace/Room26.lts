@@ -24,4 +24,4 @@ ALERT = STATE_0,
 STATE_0 = (alert -> STATE_1),
 STATE_1 = (all_clear -> STATE_0).
 
-
+||ALL_MODEL = (ALERT || ROOM). //全体モデル
