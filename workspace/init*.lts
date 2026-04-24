@@ -2,7 +2,7 @@ ENVIRONMENT = STAY,
 STAY = (ready -> {consumeA, consumeB} -> CONSUMED),
 CONSUMED = (exit -> {supplyA, supplyB} -> STAY).
 
-||Environment = ENVIRONMENT
+||Environment = ENVIRONMENT.
 
 ltl_property SUPPLY_TIMING1 = [](consumeA -> X(!consumeA W supplyA))
 ltl_property SUPPLY_TIMING2 = [](consumeB -> X(!consumeB W supplyB))
