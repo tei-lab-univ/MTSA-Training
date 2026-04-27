@@ -1,0 +1,3 @@
+Parking = EMP,
+EMP = (enter -> FULL),
+FULL = (req -> leave -> EMP).
