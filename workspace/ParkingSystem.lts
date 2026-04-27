@@ -1,1 +1,3 @@
 Parking = EMPTY,
+EMPTY = (in -> FULL),
+FULL = (out -> EMPTY).
