@@ -22,4 +22,6 @@ PATH = EMPTY,
 EMPTY = ({p[R].outPK, gtoPT1}->FULL),
 FULL = ({p[R].inPK, pt1toG}->EMPTY).
 
-||SystemEnv = (GATE||PATH)
+||SystemEnv = (GATE||PATH).
+
+ltl_property NOT_RETURN_PT1 = [](gtoPT1 -> X(!pt1toG W p[1].outPK)).
