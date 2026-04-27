@@ -1,0 +1,14 @@
+const N = 2 range R = 1..N
+PARK = EMPTY ,
+EMPTY = (in -> FULL),
+FULL = (request -> out -> EMPTY).
+
+GATE = EMPTY ,
+EMPTY = ({inG, pt1toG} -> FULL),
+FULL = ({outG, gtoPT1} -> EMPTY).
+
+PATH = EMPTY,
+EMPTY = ({p[R].outPK, gtoPT1}->FULL),
+FULL = ({p[R].inPK, pt1toG}->EMPTY).
+
+ltl_property NOT_RETURN_PT1 = [](gtoPT1 -> X(!pt1toG W p.1.inPK))
