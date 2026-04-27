@@ -22,6 +22,6 @@ set ContollableActions = {p[R].inPK, p[R].outPK, gtoPT1, pt1toG, inG, outG}
 controllerSpec Specification = {
 safety = {NOT_RETURN_PT1, NOT_RETURN_G, NOT_RETURN_G_BACK,
 NOT_RETURN_PK1, NOT_RETURN_PK2}
-controllable = ControllableActions
+controllable = ContollableActions
 }
 Controller ||Controller = (Env)~{Specification}.
