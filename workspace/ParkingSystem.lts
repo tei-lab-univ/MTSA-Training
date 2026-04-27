@@ -37,5 +37,5 @@ controllerSpec Specification = {
 		NOT_RETURN_PK1, NOT_RETURN_PK2} 
 	controllable = ControllableActions
 }
-Controller ||Controller = (Env)~{Specification}
+controller ||Controller = (Env)~{Specification}
 
