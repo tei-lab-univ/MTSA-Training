@@ -18,10 +18,11 @@ ltl_property NOT_RETURN_G_Back = [](pt1toG -> X(!gtoPT1 W outG))
 ltl_property NOT_RETURN_PK1 = [](p[1].outPK -> X(!p[1].inPK W pt1toG))
 ltl_property NOT_RETURN_PK2 = [](p[2].outPK -> X(!p[2].inPK W pt1toG))
 
-set ContollableActions = {p[R].inPK, p[R].outPK, gtoPT1, pt1toG, inG, outG}
+set ControllableActions = {p[R].inPK, p[R].outPK, gtoPT1, pt1toG, inG, outG}
 controllerSpec Specification = {
 safety = {NOT_RETURN_PT1, NOT_RETURN_G, NOT_RETURN_G_BACK,
 NOT_RETURN_PK1, NOT_RETURN_PK2}
-controllable = ContollableActions
+controllable = ControllableActions
 }
+
 Controller ||Controller = (Env)~{Specification}.
