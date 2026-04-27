@@ -39,15 +39,6 @@ controllerSpec Specification = {
 }
 Controller ||Controller = (Env)~{Specification}
 
-/*
-controllerSpec Spec= {
-	safety = {NOT_RETURN_PT1}
-}
-
-
-controller ||Controller = (Env)~{Spec}.
-
-*/
 
 // controller ||Controller 
 
