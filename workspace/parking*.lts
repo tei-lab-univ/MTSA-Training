@@ -1,3 +1,5 @@
 Parking = EMP,
 EMP = (enter -> FULL),
 FULL = (req -> leave -> EMP).
+
+||PARKS = (p[NUM_OF_SLOT] : Parking).
