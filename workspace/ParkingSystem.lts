@@ -22,6 +22,16 @@ PATH = EMPTY,
 EMPTY = ({p[R].outPK, gtoPT1}->FULL),
 FULL = ({p[R].inPK, pt1toG}->EMPTY).
 
-||SystemEnv = (GATE||PATH).
+ltl_property NOT_RETURN_PT1 = [](gtoPT1 -> X(!pt1toG W (p[1].inPK || p[2].inPK))).
 
-ltl_property NOT_RETURN_PT1 = [](gtoPT1 -> X(!pt1toG W p[1].outPK)).
+||Env = (GATE||PATH|| p[R]:PARK).
+
+controllerSpec Spec= {
+	safety = {NOT_RETURN_PT1}
+}
+
+controller ||Controller = (Env)~{Spec}.
+
+// controller ||Controller 
+
+// ltl_property NOT_RETURN_PT1 = [](gtoPT2 -> X(!pt2toG W p[2].outPK))
