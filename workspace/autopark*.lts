@@ -22,7 +22,7 @@ EMPTY = ({p3[R].outPK, gtoPT3}->FULL),
 FULL = ({p3[R].inPK, pt3topt2}->EMPTY).
 
 
-||Env = (p[R]:PARK[1] || p[R]:PARK[2] || p[R]:PARK[3] || GATE || PATH1 || PATH2 || PATH3).
+||Env = (p1[R]:PARK || p2[R]:PARK || p3[R]:PARK || GATE || PATH1 || PATH2 || PATH3).
 
 ltl_property NOT_RETURN_PT1 = [](gtoPT1 -> X(!pt1toG W (p[1].inPK || p[2].inPK)))
 ltl_property NOT_RETURN_G = [](inG -> X(!outG W (gtoPT1)))
