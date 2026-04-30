@@ -15,7 +15,7 @@ FULL = ({p1[R].inPK, pt1toG}->EMPTY).
 
 PATH2 = EMPTY,
 EMPTY = ({p2[R].outPK, gtoPT2, pt3topt2}->FULL),
-FULL = ({p2[R].inPK, pt1toG, gtoPT3}->EMPTY).
+FULL = ({p2[R].inPK, pt2toG, gtoPT3}->EMPTY).
 
 PATH3 = EMPTY,
 EMPTY = ({p3[R].outPK, gtoPT3}->FULL),
