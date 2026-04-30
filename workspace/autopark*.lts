@@ -40,7 +40,7 @@ ltl_property NOT_RETURN_3PK1 = [](p3[1].outPK -> X(!p3[1].inPK W (pt3topt2)))
 ltl_property NOT_RETURN_3PK2 = [](p3[2].outPK -> X(!p3[2].inPK W (pt3topt2)))
 
 
-set ContollableActions = {p1[R].inPK, p1[R].outPK, p2[R].inPK, p2[R].outPK, p3[R].inPK, p3[R].outPK, gtoPT1, gtoPT2, gtoPT3, pt1toG, pt2toG, pt3toPT3, inG, outG}
+set ContollableActions = {p1[R].inPK, p1[R].outPK, p2[R].inPK, p2[R].outPK, p3[R].inPK, p3[R].outPK, gtoPT1, gtoPT2, gtoPT3, pt1toG, pt2toG, pt3topt2, inG, outG}
 
 
 controllerSpec Specification = {
