@@ -15,10 +15,10 @@ FULL = ({p1[R].inPK, pt1toG}->EMPTY).
 
 PATH2 = EMPTY,
 EMPTY = ({p2[R].outPK, gtoPT2, pt3topt2}->FULL),
-FULL = ({p2[R].inPK, pt2toG, gtoPT3}->EMPTY).
+FULL = ({p2[R].inPK, pt2toG, pt2toPT3}->EMPTY).
 
 PATH3 = EMPTY,
-EMPTY = ({p3[R].outPK, gtoPT3}->FULL),
+EMPTY = ({p3[R].outPK, pt2toPT3}->FULL),
 FULL = ({p3[R].inPK, pt3topt2}->EMPTY).
 
 
@@ -31,7 +31,7 @@ ltl_property NOT_RETURN_G = [](inG -> X(!outG W (gtoPT1 || gtoPT2)))
 
 ltl_property NOT_RETURN_G_BACK1 = [](pt1toG -> X(!gtoPT1 W (outG)))
 ltl_property NOT_RETURN_G_BACK2 = [](pt2toG -> X(!gtoPT2 W (outG)))
-ltl_property NOT_RETURN_PT2_BACK = [](pt3topt2 -> X(!gtoPT3 W (pt2toG)))
+ltl_property NOT_RETURN_PT2_BACK = [](pt3topt2 -> X(!pt2toPT3 W (pt2toG)))
 ltl_property NOT_RETURN_1PK1 = [](p1[1].outPK -> X(!p1[1].inPK W (pt1toG)))
 ltl_property NOT_RETURN_1PK2 = [](p1[2].outPK -> X(!p1[2].inPK W (pt1toG)))
 ltl_property NOT_RETURN_2PK1 = [](p2[1].outPK -> X(!p2[1].inPK W (pt2toG)))
@@ -45,8 +45,8 @@ set ContollableActions = {p1[R].inPK, p1[R].outPK, p2[R].inPK, p2[R].outPK, p3[R
 
 controllerSpec Specification = {
 	safety = {NOT_RETURN_PT1, NOT_RETURN_PT2, NOT_RETURN_PT3, NOT_RETURN_G, NOT_RETURN_G_BACK1, NOT_RETURN_G_BACK2, NOT_RETURN_PT2_BACK,
-			 NOT_RETURN_1PK1, NOT_RETURN_2PK2, NOT_RETURN_2PK1, NOT_RETURN_2PK2, NOT_RETURN_3PK1, NOT_RETURN_3PK2}
-	controllable = ContollableActions
+			 NOT_RETURN_1PK1, NOT_RETURN_1PK2, NOT_RETURN_2PK1, NOT_RETURN_2PK2, NOT_RETURN_3PK1, NOT_RETURN_3PK2}
+	controllable = ControllableActions
 }
 
 controller ||Controller = (Env)~{Specification}.
