@@ -1,0 +1,48 @@
+const N = 2	
+range R = 1..N
+
+PARK = EMPTY ,
+EMPTY = (in -> FULL),
+FULL = (request -> out -> EMPTY).
+
+GATE = EMPTY ,
+EMPTY = ({inG, pt1toG} -> FULL),
+FULL = ({outG, gtoPT1} -> EMPTY).
+
+PATH1 = EMPTY,
+EMPTY = ({p1[R].outPK, gtoPT1}->FULL),
+FULL = ({p1[R].inPK, pt1toG}->EMPTY).
+
+GATE = EMPTY,
+EMPTY = ({inG, pt2toG} -> FULL),
+FULL = ({outG, gtoPT2}) -> EMPTY).
+
+PATH2 = EMPTY,
+EMPTY = ({p2[R].outPK, gtoPT2, pt3topt2}->FULL),
+FULL = ({p2[R].inPK, pt1toG, gtoPT3}->EMPTY).
+
+PATH3 = EMPTY,
+EMPTY = ({p3[R].outPK, gtoPT3}->FULL),
+FULL = ({p3[R].inPK, pt3topt2}->EMPTY).
+
+
+||Env = (p[R]:PARK || GATE || PATH).
+
+ltl_property NOT_RETURN_PT1 = [](gtoPT1 -> X(!pt1toG W (p[1].inPK || p[2].inPK)))
+ltl_property NOT_RETURN_G = [](inG -> X(!outG W (gtoPT1)))
+
+ltl_property NOT_RETURN_G_BACK = [](pt1toG -> X(!gtoPT1 W (outG)))
+ltl_property NOT_RETURN_PK1 = [](p[1].outPK -> X(!p[1].inPK W (pt1toG)))
+ltl_property NOT_RETURN_PK2 = [](p[2].outPK -> X(!p[2].inPK W (pt1toG)))
+
+
+set ContollableActions = {p[R].inPK, p[R].outPK, gtoPT1, pt1toG, inG, outG}
+
+
+controllerSpec Specification = {
+	safety = {NOT_RETURN_PT1, NOT_RETURN_G, NOT_RETURN_G_BACK,
+			 NOT_RETURN_PK1, NOT_RETURN_PK2}
+	controllable = ContollableActions
+}
+
+controller ||Controller = (Env)~{Specification}.
