@@ -52,7 +52,7 @@ COURCE[a:ID] = (when(a < 6) south    -> arrive[a+3] -> COURCE[a+3]
 // ┗━━━┻━━━┻━━━┛ (転記)
 // だったら以下のようになるのかな
 
-ltl_property DO_NOT_ENTER_X = [](!arrive[1] || !arrive[2] || !arrive[4] || !arrive[5])
+ltl_property DO_NOT_ENTER_X = [](!arrive[1] && !arrive[2] && !arrive[4] && !arrive[5])
 
 
 //*****************************************************************************
