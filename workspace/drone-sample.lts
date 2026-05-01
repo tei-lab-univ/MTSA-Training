@@ -7,7 +7,7 @@ range ID = 0..8
 
 /* set Actions (事象の集合) */
 set RobotActions = {north, south, east, west}
-set CourceActions = {arrive[ID]}
+set CourceActions = {arrive[ID]}2
 //set Mokemoke = {{ControllableActions}\{north}} //差集合なども表現可能
 
 
@@ -52,7 +52,7 @@ COURCE[a:ID] = (when(a < 6) south    -> arrive[a+3] -> COURCE[a+3]
 // ┗━━━┻━━━┻━━━┛ (転記)
 // だったら以下のようになるのかな
 
-ltl_property DO_NOT_ENTER_X = [](!arrive[1])
+ltl_property DO_NOT_ENTER_X = [](!arrive[1] || !arrive[2] || !arrive[4] || !arrive[5])
 
 
 //*****************************************************************************
