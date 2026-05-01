@@ -62,6 +62,7 @@ fluent GOAL = <arrive[8],RobotActions>
 
 controllerSpec X =
 {
+	safety = {DO_NOT_ENTER_X}
 	liveness     = {GOAL} // ゴールに到着するという条件を満たすような遷移図を描かせる(活性)
 	controllable = {RobotActions} // ロボットの動きは制御できるものなので
 }
