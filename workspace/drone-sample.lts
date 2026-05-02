@@ -22,7 +22,7 @@ ROBOT = (north -> ROBOT | south -> ROBOT | east -> ROBOT | west -> ROBOT).
 
 // Cource Model
 COURCE_S = COURCE[0],//Robotで変更
-COURCE[a:ID] = (when(a < 6) south    -> arrive[a+3] -> COURCE[a+3]
+COURCE[a:ID] = (when(a < 6) south    -> arrive[a+3] -> COURCE[a+3]//通れない場所は考えてない
                |when(a > 4) north    -> arrive[a-3] -> COURCE[a-3]
                |when(a % 3 < 2) east -> arrive[a+1] -> COURCE[a+1]
                |when(a % 3 > 0) west -> arrive[a-1] -> COURCE[a-1]).
@@ -34,7 +34,7 @@ COURCE[a:ID] = (when(a < 6) south    -> arrive[a+3] -> COURCE[a+3]
 // Requirement
 //*****************************************************************************
  
-
+ltl_property DO_NOT_ENTER_X = [](!arrive[1] && !arrive[2] && !arrive[4] && !arrive[5])
 
 
 //*****************************************************************************
@@ -44,8 +44,9 @@ fluent GOAL = <arrive[8],RobotActions>
 
 controllerSpec X =
 {
-	liveness     = {GOAL}
-	controllable = {RobotActions}
+	safety = {DO_NOT_ENTER_X}//安全性
+	liveness     = {GOAL}//活性　ゴールに到達するという条件を満たすような遷移図を描かせる
+	controllable = {RobotActions}//ロボットの動きは制御できる
 }
 controller ||C = (CourceEnvironment)~{X}.
 
