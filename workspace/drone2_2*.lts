@@ -1,49 +1,42 @@
 //*****************************************************************************
-// Environment (2次元座標による管理)
+// Environment
 //*****************************************************************************
-
-/* 座標範囲 (0～4) */
 range R = 0..4
 
-/* 座標(x,y)からID(0..24)への変換マクロ */
-// ID = x + (y * 5)
-// 例: (0,0)->0, (4,0)->4, (0,1)->5, (4,4)->24
-
-/* 障害物座標の定義 (課題のイメージ図に基づき設定) */
-// 行1 (y=1): x=0, 1, 2, 3 が障害物 (ID: 5, 6, 7, 8)
-// 行3 (y=3): x=1, 2, 3, 4 が障害物 (ID: 16, 17, 18, 19)
+/* 障害物座標の集合 */
+// [x][y] の形式で定義
 set Obstacles = {[0][1], [1][1], [2][1], [3][1], [1][3], [2][3], [3][3], [4][3]}
 
-// Robot Model (変更なし)
+// Robot Model
 ROBOT = (north -> ROBOT | south -> ROBOT | east -> ROBOT | west -> ROBOT).
 
 // Cource Model (2次元座標版)
-COURCE_S = COURCE[0][0], // スタート地点 (0,0)
+COURCE_S = COURCE[0][0],
 COURCE[x:R][y:R] = 
-    (when (y < 4 && !([x][y+1] in Obstacles)) 
+    (when (y < 4 && !exists[i:R][j:R] (Obstacles == [i][j] && i == x && j == y+1)) 
         south -> arrive[x + (y+1)*5] -> COURCE[x][y+1]
-    |when (y > 0 && !([x][y-1] in Obstacles)) 
+    |when (y > 0 && !exists[i:R][j:R] (Obstacles == [i][j] && i == x && j == y-1)) 
         north -> arrive[x + (y-1)*5] -> COURCE[x][y-1]
-    |when (x < 4 && !([x+1][y] in Obstacles)) 
+    |when (x < 4 && !exists[i:R][j:R] (Obstacles == [i][j] && i == x+1 && j == y)) 
         east  -> arrive[(x+1) + y*5] -> COURCE[x+1][y]
-    |when (x > 0 && !([x-1][y] in Obstacles)) 
+    |when (x > 0 && !exists[i:R][j:R] (Obstacles == [i][j] && i == x-1 && j == y)) 
         west  -> arrive[(x-1) + y*5] -> COURCE[x-1][y]
     ).
 
 //*****************************************************************************
-// Requirement & Controller (ゴール: ID 24)
+// Requirement / Controller (変更なし)
 //*****************************************************************************
+range ID = 0..24
+set RobotActions = {north, south, east, west}
 
-// 安全性: 障害物以外の場所のみを許可する
-property SAFE_PATH = (arrive[i:0..24] -> SAFE_PATH) + {arrive[id:0..24]}. 
-// ※実際にはCOURCE側で制限しているため、ここでは単純化
+property SAFE_PATH = (arrive[i:ID] -> SAFE_PATH).
 
-fluent GOAL = <arrive[24], {north, south, east, west}>
+fluent GOAL = <arrive[24], RobotActions>
 
 controllerSpec X = {
-    safety = {SAFE_PATH}
-    liveness = {GOAL}
-    controllable = {north, south, east, west}
+	safety = {SAFE_PATH}
+	liveness = {GOAL}
+	controllable = {RobotActions}
 }
 
 controller ||C = (COURCE_S || ROBOT)~{X}.
