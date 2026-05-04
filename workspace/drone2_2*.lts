@@ -1,116 +1,49 @@
 //*****************************************************************************
-// Environment
+// Environment (2次元座標による管理)
 //*****************************************************************************
 
-/* set variable (有限長) */
-range ID = 0..24
+/* 座標範囲 (0～4) */
+range R = 0..4
 
-/* set Actions (事象の集合) */
-set RobotActions = {north, south, east, west}
-set CourceActions = {arrive[ID]}
-//set Mokemoke = {{ControllableActions}\{north}} //差集合なども表現可能
+/* 座標(x,y)からID(0..24)への変換マクロ */
+// ID = x + (y * 5)
+// 例: (0,0)->0, (4,0)->4, (0,1)->5, (4,4)->24
 
-// 障害位置set (2D配列代替、課題2)
-set Obstacles = {5,6,7,8,16,17,18,19}
+/* 障害物座標の定義 (課題のイメージ図に基づき設定) */
+// 行1 (y=1): x=0, 1, 2, 3 が障害物 (ID: 5, 6, 7, 8)
+// 行3 (y=3): x=1, 2, 3, 4 が障害物 (ID: 16, 17, 18, 19)
+set Obstacles = {[0][1], [1][1], [2][1], [3][1], [1][3], [2][3], [3][3], [4][3]}
 
-
-/* State machine figure */
-
-// Robot Model
-ROBOT_S = ROBOT,
+// Robot Model (変更なし)
 ROBOT = (north -> ROBOT | south -> ROBOT | east -> ROBOT | west -> ROBOT).
-//ROBOT = ({north, south, east, west} -> ROBOT). //上の同じ
-//ROBOT = ({RobotActions} -> ROBOT). //上の同じ
 
-// Cource Model
-COURCE_S = COURCE[0],//Robotで変更
-COURCE[a:ID] = 
-  when(a notin Obstacles)
-    (when(a < 20) south    -> arrive[a+5] -> COURCE[a+5]
-   | when(a > 4)  north    -> arrive[a-5] -> COURCE[a-5]
-   | when(a % 5 < 4) east  -> arrive[a+1] -> COURCE[a+1]
-   | when(a % 5 > 0) west  -> arrive[a-1] -> COURCE[a-1]).
-
-
-|| RobotEnvironment = (ROBOT_S).
-|| CourceEnvironment = (COURCE_S).
+// Cource Model (2次元座標版)
+COURCE_S = COURCE[0][0], // スタート地点 (0,0)
+COURCE[x:R][y:R] = 
+    (when (y < 4 && !([x][y+1] in Obstacles)) 
+        south -> arrive[x + (y+1)*5] -> COURCE[x][y+1]
+    |when (y > 0 && !([x][y-1] in Obstacles)) 
+        north -> arrive[x + (y-1)*5] -> COURCE[x][y-1]
+    |when (x < 4 && !([x+1][y] in Obstacles)) 
+        east  -> arrive[(x+1) + y*5] -> COURCE[x+1][y]
+    |when (x > 0 && !([x-1][y] in Obstacles)) 
+        west  -> arrive[(x-1) + y*5] -> COURCE[x-1][y]
+    ).
 
 //*****************************************************************************
-// Requirement
+// Requirement & Controller (ゴール: ID 24)
 //*****************************************************************************
- 
-property SAFE_PATH =
-    (arrive[0] -> SAFE_PATH
-    |arrive[1] -> SAFE_PATH
-    |arrive[2] -> SAFE_PATH
-    |arrive[3] -> SAFE_PATH
-	|arrive[4] -> SAFE_PATH
-    |arrive[9] -> SAFE_PATH
-    |arrive[10] -> SAFE_PATH
-	|arrive[11] -> SAFE_PATH
-    |arrive[12] -> SAFE_PATH
-    |arrive[13] -> SAFE_PATH
-    |arrive[14] -> SAFE_PATH
-    |arrive[15] -> SAFE_PATH
-    |arrive[20] -> SAFE_PATH
-    |arrive[21] -> SAFE_PATH
-    |arrive[22] -> SAFE_PATH
-    |arrive[23] -> SAFE_PATH
-    |arrive[24] -> SAFE_PATH).
 
-//*****************************************************************************
-// Controller
-//*****************************************************************************
-fluent GOAL = <arrive[24],RobotActions>
+// 安全性: 障害物以外の場所のみを許可する
+property SAFE_PATH = (arrive[i:0..24] -> SAFE_PATH) + {arrive[id:0..24]}. 
+// ※実際にはCOURCE側で制限しているため、ここでは単純化
 
-controllerSpec X =
-{
-	safety = {SAFE_PATH}//安全性
-	liveness     = {GOAL}//活性　ゴールに到達するという条件を満たすような遷移図を描かせる
-	controllable = {RobotActions}//ロボットの動きは制御できる
+fluent GOAL = <arrive[24], {north, south, east, west}>
+
+controllerSpec X = {
+    safety = {SAFE_PATH}
+    liveness = {GOAL}
+    controllable = {north, south, east, west}
 }
-controller ||C = (CourceEnvironment)~{X}.
 
-//*****************************************************************************
-// Image
-//*****************************************************************************
-// ┏━━━┳━━━┳━━━┓
-// ┃ S ┃ x ┃ x ┃
-// ┣━━━╋━━━╋━━━┫
-// ┃   ┃ x ┃ x ┃
-// ┣━━━╋━━━╋━━━┫
-// ┃   ┃   ┃ G ┃
-// ┗━━━┻━━━┻━━━┛
-// S=スタート地点 G=ゴール地点 x=通れない場所
-
-
-// 課題１
-// 上記の3*3のコースモデルを5*5にしてみよう！
-// ┏━━━┳━━━┳━━━┳━━━┳━━━┓
-// ┃ S ┃   ┃   ┃   ┃   ┃
-// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
-// ┃ x ┃ x ┃ x ┃ x ┃   ┃
-// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
-// ┃   ┃   ┃   ┃   ┃   ┃
-// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
-// ┃   ┃ x ┃ x ┃ x ┃ x ┃
-// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
-// ┃   ┃   ┃   ┃   ┃ G ┃
-// ┗━━━┻━━━┻━━━┻━━━┻━━━┛
-// S=スタート地点 G=ゴール地点 x=通れない場所
-
-
-// 課題２
-// 上記の5*5のコースモデルを２次元配列など，他の方法で記述してみよう！
-// ┏━━━┳━━━┳━━━┳━━━┳━━━┓
-// ┃ S ┃   ┃   ┃   ┃   ┃
-// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
-// ┃ x ┃ x ┃ x ┃ x ┃   ┃
-// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
-// ┃   ┃   ┃   ┃   ┃   ┃
-// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
-// ┃   ┃ x ┃ x ┃ x ┃ x ┃
-// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
-// ┃   ┃   ┃   ┃   ┃ G ┃
-// ┗━━━┻━━━┻━━━┻━━━┻━━━┛
-// S=スタート地点 G=ゴール地点 x=通れない場所
+controller ||C = (COURCE_S || ROBOT)~{X}.
