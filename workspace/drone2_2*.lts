@@ -1,0 +1,111 @@
+//*****************************************************************************
+// Environment
+//*****************************************************************************
+
+/* set variable (有限長) */
+range ID = 0..24
+
+/* set Actions (事象の集合) */
+set RobotActions = {north, south, east, west}
+set CourceActions = {arrive[ID]}
+//set Mokemoke = {{ControllableActions}\{north}} //差集合なども表現可能
+
+
+
+/* State machine figure */
+
+// Robot Model
+ROBOT_S = ROBOT,
+ROBOT = (north -> ROBOT | south -> ROBOT | east -> ROBOT | west -> ROBOT).
+//ROBOT = ({north, south, east, west} -> ROBOT). //上の同じ
+//ROBOT = ({RobotActions} -> ROBOT). //上の同じ
+
+// Cource Model
+COURCE_S = COURCE[0],//Robotで変更
+COURCE[a:ID] = (when(a < 20) south    -> arrive[a+5] -> COURCE[a+5]
+               |when(a > 4) north    -> arrive[a-5] -> COURCE[a-5]
+               |when(a % 5 < 4) east -> arrive[a+1] -> COURCE[a+1]
+               |when(a % 5 > 0) west -> arrive[a-1] -> COURCE[a-1]).
+
+|| RobotEnvironment = (ROBOT_S).
+|| CourceEnvironment = (COURCE_S).
+
+//*****************************************************************************
+// Requirement
+//*****************************************************************************
+ 
+property SAFE_PATH =
+    (arrive[0] -> SAFE_PATH
+    |arrive[1] -> SAFE_PATH
+    |arrive[2] -> SAFE_PATH
+    |arrive[3] -> SAFE_PATH
+	|arrive[4] -> SAFE_PATH
+    |arrive[9] -> SAFE_PATH
+    |arrive[10] -> SAFE_PATH
+	|arrive[11] -> SAFE_PATH
+    |arrive[12] -> SAFE_PATH
+    |arrive[13] -> SAFE_PATH
+    |arrive[14] -> SAFE_PATH
+    |arrive[15] -> SAFE_PATH
+    |arrive[20] -> SAFE_PATH
+    |arrive[21] -> SAFE_PATH
+    |arrive[22] -> SAFE_PATH
+    |arrive[23] -> SAFE_PATH
+    |arrive[24] -> SAFE_PATH).
+
+//*****************************************************************************
+// Controller
+//*****************************************************************************
+fluent GOAL = <arrive[24],RobotActions>
+
+controllerSpec X =
+{
+	safety = {SAFE_PATH}//安全性
+	liveness     = {GOAL}//活性　ゴールに到達するという条件を満たすような遷移図を描かせる
+	controllable = {RobotActions}//ロボットの動きは制御できる
+}
+controller ||C = (CourceEnvironment)~{X}.
+
+//*****************************************************************************
+// Image
+//*****************************************************************************
+// ┏━━━┳━━━┳━━━┓
+// ┃ S ┃ x ┃ x ┃
+// ┣━━━╋━━━╋━━━┫
+// ┃   ┃ x ┃ x ┃
+// ┣━━━╋━━━╋━━━┫
+// ┃   ┃   ┃ G ┃
+// ┗━━━┻━━━┻━━━┛
+// S=スタート地点 G=ゴール地点 x=通れない場所
+
+
+// 課題１
+// 上記の3*3のコースモデルを5*5にしてみよう！
+// ┏━━━┳━━━┳━━━┳━━━┳━━━┓
+// ┃ S ┃   ┃   ┃   ┃   ┃
+// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+// ┃ x ┃ x ┃ x ┃ x ┃   ┃
+// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+// ┃   ┃   ┃   ┃   ┃   ┃
+// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+// ┃   ┃ x ┃ x ┃ x ┃ x ┃
+// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+// ┃   ┃   ┃   ┃   ┃ G ┃
+// ┗━━━┻━━━┻━━━┻━━━┻━━━┛
+// S=スタート地点 G=ゴール地点 x=通れない場所
+
+
+// 課題２
+// 上記の5*5のコースモデルを２次元配列など，他の方法で記述してみよう！
+// ┏━━━┳━━━┳━━━┳━━━┳━━━┓
+// ┃ S ┃   ┃   ┃   ┃   ┃
+// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+// ┃ x ┃ x ┃ x ┃ x ┃   ┃
+// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+// ┃   ┃   ┃   ┃   ┃   ┃
+// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+// ┃   ┃ x ┃ x ┃ x ┃ x ┃
+// ┣━━━╋━━━╋━━━╋━━━╋━━━┫
+// ┃   ┃   ┃   ┃   ┃ G ┃
+// ┗━━━┻━━━┻━━━┻━━━┻━━━┛
+// S=スタート地点 G=ゴール地点 x=通れない場所
