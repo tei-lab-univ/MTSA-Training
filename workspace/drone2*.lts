@@ -34,8 +34,12 @@ COURCE[a:ID] = (when(a < 20) south    -> arrive[a+5] -> COURCE[a+5]
 // Requirement
 //*****************************************************************************
  
-
-
+property SAFE_PATH =
+    (arrive[0] -> SAFE_PATH
+    |arrive[3] -> SAFE_PATH
+    |arrive[6] -> SAFE_PATH
+    |arrive[7] -> SAFE_PATH
+    |arrive[8] -> SAFE_PATH).
 
 //*****************************************************************************
 // Controller
@@ -44,8 +48,9 @@ fluent GOAL = <arrive[8],RobotActions>
 
 controllerSpec X =
 {
-	liveness     = {GOAL}
-	controllable = {RobotActions}
+	safety = {SAFE_PATH}//安全性
+	liveness     = {GOAL}//活性　ゴールに到達するという条件を満たすような遷移図を描かせる
+	controllable = {RobotActions}//ロボットの動きは制御できる
 }
 controller ||C = (CourceEnvironment)~{X}.
 
