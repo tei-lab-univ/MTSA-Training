@@ -22,7 +22,6 @@ ROBOT = (north -> ROBOT | south -> ROBOT | east -> ROBOT | west -> ROBOT).
 
 // Cource Model
 COURCE_S = COURCE[0],//Robotで変更
-COURCE[24] = COURCE[24],
 COURCE[a:ID] = (when(a < 20) south    -> arrive[a+5] -> COURCE[a+5]
                |when(a > 4) north    -> arrive[a-5] -> COURCE[a-5]
                |when(a % 5 < 4) east -> arrive[a+1] -> COURCE[a+1]
