@@ -24,7 +24,7 @@ ROBOT = (north -> ROBOT | south -> ROBOT | east -> ROBOT | west -> ROBOT).
 // Cource Model
 COURCE_S = COURCE[0],//Robotで変更
 COURCE[a:COL][b:ROW] = (when(a < 4) south    -> arrive[a+1][b] -> COURCE[a+1][b]
-             		   |when(a > 4) north    -> arrive[a-1][b] -> COURCE[a-1][b]
+             		   |when(a > 0) north    -> arrive[a-1][b] -> COURCE[a-1][b]
              		   |when(b < 4) east     -> arrive[a][b+1] -> COURCE[a][b+1]
              		   |when(b > 0) west     -> arrive[a][b-1] -> COURCE[a][b-1]).
 
