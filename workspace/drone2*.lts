@@ -34,7 +34,7 @@ COURCE[a:ID] = (when(a < 20) south    -> arrive[a+5] -> COURCE[a+5]
 // Requirement
 //*****************************************************************************
  
-ltl_property DO_NOT_ENTER_X = [](!arrive[1] && !arrive[2] && !arrive[4] && !arrive[5])
+ltl_property DO_NOT_ENTER_X = [](!arrive[5] && !arrive[6] && !arrive[7] && !arrive[8] && !arrive[16] && !arrive[17] && !arrive[18] && !arrive[19])
 
 //*****************************************************************************
 // Controller
